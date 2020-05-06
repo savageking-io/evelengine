@@ -6,7 +6,7 @@ install:
   - pip install conan
   - conan user
   - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev
-  - conan create . user/channel
+  - conan install --file ./.conanfile
 
 script:
   - ./configure
