@@ -1,0 +1,6 @@
+#ifndef __EVEL_ENGINE_CHARACTER_HPP__
+#define __EVEL_ENGINE_CHARACTER_HPP__
+
+
+
+#endif
