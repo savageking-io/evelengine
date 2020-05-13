@@ -1,5 +1,6 @@
 language: cpp
 dist: bionic
+compiler: gcc
 
 install:
   - pyenv global 3.7

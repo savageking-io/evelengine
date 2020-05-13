@@ -3,7 +3,7 @@ include conanbuildinfo.mak
 export CC=g++
 export CXXLIBS=
 export CXXINCLUDES=
-export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include -I$(CONAN_ROOT_SPDLOG)/include -I$(CONAN_ROOT_FMT)/include --std=c++17 -Wall
+export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include -I$(CONAN_ROOT_SPDLOG)/include -I$(CONAN_ROOT_FMT)/include -std=c++17 -Wall
 export LDFLAGS=$(SDL_LIBS) -ljsoncpp -g
 export BINARY=libevelengine
 export LIB_DIRECTORY=$(CURDIR)/lib
