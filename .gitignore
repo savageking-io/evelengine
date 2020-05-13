@@ -3,3 +3,9 @@ build
 lib
 make.config
 make.examples
+
+# conan
+conan.lock
+conanbuildinfo.*
+conaninfo.*
+graph_info.json
