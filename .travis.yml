@@ -14,6 +14,10 @@ install:
   - conan install ./.conanfile
 
 script:
+  - ln -s /usr/bin/gcc-10 /usr/local/bin/gcc
+  - ln -s /usr/bin/g++-10 /usr/local/bin/g++
+  - export CC=/usr/bin/gcc-10
+  - export CXX=/usr/bin/g++-10
   - g++ --version
   - ./configure
   - make
