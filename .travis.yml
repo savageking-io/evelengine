@@ -8,7 +8,7 @@ install:
   - conan user
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -q update
-  - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev gcc-9
+  - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev gcc-9 g++-9
   - conan install ./.conanfile
 
 script:
