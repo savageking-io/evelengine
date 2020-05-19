@@ -12,6 +12,7 @@ install:
   - conan install ./.conanfile
 
 script:
+  - g++ --version
   - ./configure
   - make
 
