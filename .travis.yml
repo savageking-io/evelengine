@@ -6,8 +6,8 @@ install:
   - pyenv global 3.7
   - pip install conan
   - conan user
-  - add-apt-repository -y ppa:jonathonf/gcc-9.0
-  - apt-get -q update
+  - sudo add-apt-repository -y ppa:jonathonf/gcc-9.0
+  - sudo apt-get -q update
   - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev gcc-9
   - conan install ./.conanfile
 
