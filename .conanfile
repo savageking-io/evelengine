@@ -1,5 +1,6 @@
 [requires]
 spdlog/[>=1.4.1]
+jsoncpp/1.9.0@theirix/stable
 
 [generators]
 make
