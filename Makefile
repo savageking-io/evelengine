@@ -6,7 +6,7 @@ export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include \
 	-I$(CONAN_ROOT_FMT)/include \
 	-I$(CONAN_ROOT_JSONCPP)/include \
 	-std=c++17 -Wall
-export LDFLAGS=$(SDL_LIBS) -L$(CONAN_ROOT_JSONCPP)/lib -ljsoncpp -g
+export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -lfmt -lspdlog $(SDL_LIBS) -ljsoncpp
 export BINARY=libevelengine
 export LIB_DIRECTORY=$(CURDIR)/lib
 # Top directory for example projects
