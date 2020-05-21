@@ -6,7 +6,7 @@ OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o \
 suite: test-dirs $(BIN_DIRECTORY)/testsuite
 
 $(BIN_DIRECTORY)/testsuite: $(OBJ)
-	$(CXX) -L$(LIB_DIRECTORY) -levelengine -lcppunit $(LDFLAGS) $(OBJ) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o: AnimationFileJSONTest.cpp AnimationFileJSONTest.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@

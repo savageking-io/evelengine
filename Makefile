@@ -6,7 +6,8 @@ export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include \
 	-I$(CONAN_ROOT_FMT)/include \
 	-I$(CONAN_ROOT_JSONCPP)/include \
 	-std=c++17 -Wall
-export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -lfmt -lspdlog $(SDL_LIBS) -ljsoncpp
+export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib $(SDL_LIBS) 
+#export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -lfmt -lspdlog $(SDL_LIBS) -ljsoncpp
 export BINARY=libevelengine
 export LIB_DIRECTORY=$(CURDIR)/lib
 # Top directory for example projects
@@ -49,7 +50,7 @@ include $(CONFIGFILE)
 
 all: lib examples tests
 
-lib: shared static
+lib: static shared
 
 shared: directories
 shared: $(LIB_DIRECTORY)/$(BINARY).$(EXT)
@@ -180,7 +181,7 @@ $(BUILD_DIRECTORY)/Text.o: $(SOURCE_DIR)/Text.cpp $(INCLUDE_DIR)/Text.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(LIB_DIRECTORY)/$(BINARY).$(EXT): $(OBJECT_FILES) 
-	$(CXX) $(LDFLAGS) $(OBJECT_FILES) -shared -o $@
+	$(CXX) $(OBJECT_FILES) $(LDFLAGS) -shared -o $@
 
 $(LIB_DIRECTORY)/$(BINARY).a: $(OBJECT_FILES)
 	$(AR) $(ARFLAGS) $@ $^
