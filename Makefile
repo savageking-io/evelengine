@@ -14,6 +14,7 @@ export LIB_DIRECTORY=$(CURDIR)/lib
 export APP_DIRECTORY=examples
 export BIN_DIRECTORY=$(CURDIR)/bin
 export BUILD_DIRECTORY=$(CURDIR)/build
+export DIST_DIRECTORY=$(CURDIR)/dist
 SOURCE_DIR=src
 INCLUDE_DIR=include
 CONFIGFILE=make.config
@@ -72,9 +73,10 @@ include make.examples
 directories:
 	@mkdir -p $(LIB_DIRECTORY)
 	@mkdir -p $(BUILD_DIRECTORY)
+	@mkdir -p $(DIST_DIRECTORY)
 
 archive: lib
-	tar zcvf $(ARCHIVE) lib/*a lib/*.$(EXT)
+	tar zcvf $(DIST_DIRECTORY)/$(ARCHIVE) lib/*a lib/*.$(EXT)
 
 clean: examples-clean
 	$(MAKE) -C ./testsuite clean
