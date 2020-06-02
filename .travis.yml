@@ -19,6 +19,7 @@ script:
   - g++ --version
   - "./configure --build-id=$TRAVIS_BUILD_NUMBER --trigger=$TRAVIS_EVENT_TYPE"
   - make
+  - make archive
 
 notifications:
   webhooks:
