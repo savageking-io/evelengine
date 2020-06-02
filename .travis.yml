@@ -36,7 +36,7 @@ deploy:
   access_key_id: 5GBWILG7XOC3F3FDL2WY
   secret_access_key:
     secure: HhUCFNseHGc3UPGWtlEnyCzRhkBB/d6E6WO5AKVGLpu1f92MFVmOFXcAm2kV94rurFnCUS5r2YHK88ATZDhDBs42rZAg7ssioqHlms9Ao59tvg0qzym/Izo7mgr7qv/MrbFD7Cqgt015rjYRrF3oYnd6cowPeQ0OlbgEIMa7jR9NVDO9vLdWDu/LqbebrOc4X5ggpajr2U9VyOr1dvm28acDaVvraTzsXY8PCBBqlEYE3Vch3aYOx+keQ+FBRlmwq2pb4/oFL67L6up9Q50o4uqs1qAEYHyrgt40jY3FYBTllEBY7/hzt1a/OF7sSq2F0+QzKivfDF0QdaqLJY6lDCeZUxclU+qQ9gmgIc6PNZFOpWcEMHEd3uZ5YQEA9y/edeFP6SdoWZFldXNDZ2hR621uaP+tG+36Ff9TzpV5k/4xyPUG/hplDQBkgCmsF7ANuCjTGmuU7FThPKMgnoNyI+utbkPh1tztdg5w6DwxUcLA/D1aohPewNdcKmTAf885YCf/sGHNowPOSY+krVI4XkKmsjR3PYFzKLcZa0yBHs5HH+oedwq32Xy8h6IA++txOUT1I6eKg0UMluGBnjtisyLSumN69GFQV0TOwf3FOdQtXhrfkqjbu064GUYf5n7MHlYEK9DXLf/ZNVd15HFzMi29a4HVBWbQmjp1s3yqKHw=
-  bucket: evelengine
+    # bucket: evelengine
   upload-dir: evelengine
   acl: public_read
   endpoint: https://fra1.digitaloceanspaces.com
