@@ -73,6 +73,9 @@ directories:
 	@mkdir -p $(LIB_DIRECTORY)
 	@mkdir -p $(BUILD_DIRECTORY)
 
+archive: lib
+	tar zcvf $(ARCHIVE) lib/*a lib/*.$(EXT)
+
 clean: examples-clean
 	$(MAKE) -C ./testsuite clean
 	-rm -rf docs/out

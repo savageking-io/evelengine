@@ -1,11 +1,68 @@
 #!/bin/bash
 
 root_dir="$(dirname "$0")"
+version="$(cat VERSION)"
 assets_dir=assets
 fonts_dir=$assets_dir/fonts
 prefix=/usr
+arch="$(uname -m)"
+trigger="custom"
 ext=
 sdl_libs=
+build_id="unknown"
+archive_name="libevelengine"
+
+showhelp() 
+{
+cat << HELPMSG
+usage: configure [options]
+Configure evelengine build 
+
+Options:
+  --help
+    Display this help message
+
+  --trigger=<trigger>
+    Specify trigger of the build. "custom" is default
+
+  --build-id=<build-id>
+    Specify ID of the build
+
+HELPMSG
+}
+
+while [ $# -ge 1 ]; do
+	case "$1" in
+
+	--trigger=*)
+		trigger="`echo ${1} | awk '{print substr($0,11)}'`" ;;
+
+    --build-id=*)
+		build_id="`echo ${1} | awk '{print substr($0,12)}'`" ;;
+
+    --help)
+ 		showhelp
+ 		exit 0
+		;;
+
+	*)
+		showhelp
+		exit 1
+		;;
+
+    esac
+
+    shift
+done
+
+if [ "$trigger" == "cron" ]; then
+    trigger="nightly"
+elif [ "$trigger" == "push" ]; then
+    trigger="latest"
+elif [ "$trigger" == "pull_request" ]; then
+    trigger="test"
+fi
+
 if [ `uname -s` == "Darwin" ]; then
     echo "Configured for Darwin"
     ext=dylib
@@ -51,6 +108,15 @@ for file in `ls examples`; do
     fi
 done
 
+archive_name="${archive_name}-${trigger}-${version}"
+
+if [ "$build_id" != "unknown" ]; then
+    archive_name="${archive_name}-${build_id}"
+fi
+
+archive_name="${archive_name}-${arch}.tar.gz"
+
+
 echo "" >> make.examples
 echo "examples:$examples_list" >> make.examples
 echo "" >> make.examples
@@ -59,16 +125,27 @@ echo "" >> make.examples
 echo "examples-mrproper:$mrproper_list" >> make.examples
 
 echo $example_rules
+echo $archive_name
 
 output_file=make.config
 
 echo "# ${output_file} generate by configure script" > $output_file
-echo "EXAMPLES =$examples_list" >> $output_file
+echo "EXAMPLES=$examples_list" >> $output_file
 echo "EXT=${ext}" >> $output_file
 echo "SDL_LIBS=${sdl_libs}" >> $output_file
 echo "PREFIX=${prefix}" >> $output_file
+echo "ARCH_NAME=${arch}" >> $output_file
+echo "BUILD_TRIGGER=${trigger}" >> $output_file
+echo "VERSION_NUMBER=${version}" >> $output_file
+echo "BUILD_ID=${build_id}" >> $output_file
+echo "ARCHIVE=${archive_name}" >> $output_file
 
 echo "export EXAMPLES" >> $output_file
 echo "export EXT" >> $output_file
 echo "export SDL_LIBS" >> $output_file
 echo "export PREFIX" >> $output_file
+echo "export ARCH_NAME" >> $output_file
+echo "export BUILD_TRIGGER" >> $output_file
+echo "export VERSION_NUMBER" >> $output_file
+echo "export BUILD_ID" >> $output_file
+echo "export ARCHIVE" >> $output_file

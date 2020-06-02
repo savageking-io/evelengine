@@ -5,7 +5,8 @@ compiler: gcc
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -q update
-  - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-net-dev libsdl2-ttf-dev gcc-10 g++-10 libcppunit-dev
+  - sudo apt-get -y install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-mixer-dev
+  libsdl2-net-dev libsdl2-ttf-dev gcc-10 g++-10 libcppunit-dev
 
 install:
   - pyenv global 3.7
@@ -17,15 +18,28 @@ script:
   - export CC=/usr/bin/gcc-10
   - export CXX=/usr/bin/g++-10
   - g++ --version
-  - ./configure
+  - "./configure --build-id=$TRAVIS_BUILD_NUMBER --trigger=$TRAVIS_EVENT_TYPE"
   - make
 
 notifications:
   webhooks:
     urls:
-      - http://savageking.io:12811/travis
+    - http://savageking.io:12811/travis
     on_success: always
-    on_failure: always 
-    on_start:   always 
-    on_cancel:  always
-    on_error:   always
+    on_failure: always
+    on_start: always
+    on_cancel: always
+    on_error: always
+
+deploy:
+  provider: s3
+  access_key_id: 5GBWILG7XOC3F3FDL2WY
+  secret_access_key:
+    secure: HhUCFNseHGc3UPGWtlEnyCzRhkBB/d6E6WO5AKVGLpu1f92MFVmOFXcAm2kV94rurFnCUS5r2YHK88ATZDhDBs42rZAg7ssioqHlms9Ao59tvg0qzym/Izo7mgr7qv/MrbFD7Cqgt015rjYRrF3oYnd6cowPeQ0OlbgEIMa7jR9NVDO9vLdWDu/LqbebrOc4X5ggpajr2U9VyOr1dvm28acDaVvraTzsXY8PCBBqlEYE3Vch3aYOx+keQ+FBRlmwq2pb4/oFL67L6up9Q50o4uqs1qAEYHyrgt40jY3FYBTllEBY7/hzt1a/OF7sSq2F0+QzKivfDF0QdaqLJY6lDCeZUxclU+qQ9gmgIc6PNZFOpWcEMHEd3uZ5YQEA9y/edeFP6SdoWZFldXNDZ2hR621uaP+tG+36Ff9TzpV5k/4xyPUG/hplDQBkgCmsF7ANuCjTGmuU7FThPKMgnoNyI+utbkPh1tztdg5w6DwxUcLA/D1aohPewNdcKmTAf885YCf/sGHNowPOSY+krVI4XkKmsjR3PYFzKLcZa0yBHs5HH+oedwq32Xy8h6IA++txOUT1I6eKg0UMluGBnjtisyLSumN69GFQV0TOwf3FOdQtXhrfkqjbu064GUYf5n7MHlYEK9DXLf/ZNVd15HFzMi29a4HVBWbQmjp1s3yqKHw=
+  bucket: evelengine
+  upload-dir: evelengine
+  acl: public_read
+  endpoint: https://fra1.digitaloceanspaces.com
+  on:
+    repo: savageking-io/evelengine
+  skip_cleanup: 'true'
