@@ -9,9 +9,9 @@ before_install:
 
 install:
   - pyenv global 3.7
-  - pip install conan
+  - pip install conan cmake
   - conan user
-  - conan install ./.conanfile
+  - conan install ./.conanfile --build fmt --build gtest --build jsoncpp --build spdlog -s compiler.libcxx=libstdc++11
 
 script:
   - export CC=/usr/bin/gcc-10
