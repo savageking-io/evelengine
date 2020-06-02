@@ -40,6 +40,7 @@ deploy:
   upload-dir: evelengine
   acl: public_read
   endpoint: https://fra1.digitaloceanspaces.com
+  glob: "*.tar.gz"
   on:
     repo: savageking-io/evelengine
   skip_cleanup: 'true'
