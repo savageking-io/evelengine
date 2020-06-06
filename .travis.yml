@@ -40,7 +40,7 @@ deploy:
   local_dir: dist
   upload-dir: evelengine
   acl: public_read
-  endpoint: http://fra1.digitaloceanspaces.com
+  endpoint: https://fra1.digitaloceanspaces.com
   on:
     repo: savageking-io/evelengine
   skip_cleanup: 'true'
