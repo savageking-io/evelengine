@@ -97,9 +97,12 @@ mrproper: clean examples-mrproper
 
 install:
 	cp $(LIB_DIRECTORY)/libevelengine* $(PREFIX)/lib/
+	mkdir -p $(PREFIX)/include/evelengine
+	cp $(CURDIR)/include $(PREFIX)/include/evelengine/
 
 uninstall:
 	rm -f $(PREFIX)/lib/libevelengine*
+	rm -rf $(PREFIX)/include/evelengine
 
 $(BUILD_DIRECTORY)/Engine.o: $(SOURCE_DIR)/Engine.cpp $(INCLUDE_DIR)/Engine.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
