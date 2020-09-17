@@ -31,7 +31,11 @@ Object::Object(const std::string& id, ResourceManager* manager, SDL_Renderer* re
     , _manager(manager)
 {
     _attached = true;
-    _log->info("Creating object with id: {0} from {1}", _id, filename);
+    if (filename != "") {
+        _log->info("Creating object with id: {0} from {1}", _id, filename);
+    } else {
+        _log->info("Spawning object with id: {0}", _id);
+    }
     _filename = filename;
     _x = -999;
     _y = -999;

@@ -1,14 +1,18 @@
 OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o \
 	$(BUILD_DIRECTORY)/testsuite/StringsUtilTest.o \
+	$(BUILD_DIRECTORY)/testsuite/ConfigurationBaseTest.o \
 	$(BUILD_DIRECTORY)/testsuite/FileSystemTest.o \
 	$(BUILD_DIRECTORY)/testsuite/TestSuite.o 
 
 suite: test-dirs $(BIN_DIRECTORY)/testsuite
 
 $(BIN_DIRECTORY)/testsuite: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o: AnimationFileJSONTest.cpp AnimationFileJSONTest.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIRECTORY)/testsuite/ConfigurationBaseTest.o: ConfigurationBaseTest.cpp ConfigurationBaseTest.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIRECTORY)/testsuite/StringsUtilTest.o: StringsUtilTest.cpp StringsUtilTest.hpp

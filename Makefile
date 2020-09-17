@@ -5,8 +5,10 @@ export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include \
 	-I$(CONAN_ROOT_SPDLOG)/include \
 	-I$(CONAN_ROOT_FMT)/include \
 	-I$(CONAN_ROOT_JSONCPP)/include \
+	-I$(CONAN_ROOT_YAMLCPP)/include \
+	-I$(CONAN_ROOT_POCO)/include \
 	-std=c++17 -Wall
-export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib $(SDL_LIBS) 
+export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -L$(CONAN_ROOT_YAMLCPP)/lib -L$(CONAN_ROOT_POCO)/lib $(SDL_LIBS) 
 #export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -lfmt -lspdlog $(SDL_LIBS) -ljsoncpp
 export BINARY=libevelengine
 export LIB_DIRECTORY=$(CURDIR)/lib
@@ -22,6 +24,8 @@ CONFIGFILE=make.config
 OBJECT_FILES =  $(BUILD_DIRECTORY)/Engine.o \
 		$(BUILD_DIRECTORY)/Assert.o \
 		$(BUILD_DIRECTORY)/Log.o \
+		$(BUILD_DIRECTORY)/ConfigurationBase.o \
+		$(BUILD_DIRECTORY)/ConfigurationYAML.o \
 		$(BUILD_DIRECTORY)/FileSystem.o \
 		$(BUILD_DIRECTORY)/Timer.o \
 		$(BUILD_DIRECTORY)/Scene.o \
@@ -43,9 +47,11 @@ OBJECT_FILES =  $(BUILD_DIRECTORY)/Engine.o \
 		$(BUILD_DIRECTORY)/Camera.o \
 		$(BUILD_DIRECTORY)/ResourceManager.o \
 		$(BUILD_DIRECTORY)/Primitives.o \
+		$(BUILD_DIRECTORY)/Point.o \
 		$(BUILD_DIRECTORY)/Rectangle.o \
 		$(BUILD_DIRECTORY)/StringsUtil.o \
-		$(BUILD_DIRECTORY)/Text.o
+		$(BUILD_DIRECTORY)/Text.o \
+		$(BUILD_DIRECTORY)/RuntimeStats.o
 
 include $(CONFIGFILE)
 
@@ -59,16 +65,18 @@ shared: $(LIB_DIRECTORY)/$(BINARY).$(EXT)
 static: directories
 static: $(LIB_DIRECTORY)/$(BINARY).a
 
+
 doc:
 	doxygen docs/Doxyfile
 
 tests: lib
 	$(MAKE) -C ./testsuite suite
 
+assets: examples
+	$(MAKE) -C ./templates generate
+
 test: tests
 	@LD_LIBRARY_PATH=./lib bin/testsuite
-
-include make.examples
 
 directories:
 	@mkdir -p $(LIB_DIRECTORY)
@@ -84,10 +92,8 @@ clean: examples-clean
 	-rm -f $(LIB_DIRECTORY)/$(BINARY)*
 	-rm -f $(OBJECT_FILES)
 
-dist-clean: mrproper
-
-mrproper: clean examples-mrproper
-	$(MAKE) -C ./testsuite mrproper
+distclean: clean examples-distclean
+	$(MAKE) -C ./testsuite distclean
 	-rm -f $(CONFIGFILE)
 	-rm -f make.examples
 	-rm -rf $(LIB_DIRECTORY)
@@ -111,6 +117,12 @@ $(BUILD_DIRECTORY)/Assert.o: $(SOURCE_DIR)/Assert.cpp $(INCLUDE_DIR)/Assert.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/Log.o: $(SOURCE_DIR)/Log.cpp $(INCLUDE_DIR)/Log.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/ConfigurationBase.o: $(SOURCE_DIR)/ConfigurationBase.cpp $(INCLUDE_DIR)/ConfigurationBase.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/ConfigurationYAML.o: $(SOURCE_DIR)/ConfigurationYAML.cpp $(INCLUDE_DIR)/ConfigurationYAML.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/FileSystem.o: $(SOURCE_DIR)/FileSystem.cpp $(INCLUDE_DIR)/FileSystem.hpp
@@ -185,7 +197,13 @@ $(BUILD_DIRECTORY)/Primitives.o: $(SOURCE_DIR)/Primitives.cpp $(INCLUDE_DIR)/Pri
 $(BUILD_DIRECTORY)/Rectangle.o: $(SOURCE_DIR)/Rectangle.cpp $(INCLUDE_DIR)/Rectangle.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
+$(BUILD_DIRECTORY)/Point.o: $(SOURCE_DIR)/Point.cpp $(INCLUDE_DIR)/Point.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
 $(BUILD_DIRECTORY)/Text.o: $(SOURCE_DIR)/Text.cpp $(INCLUDE_DIR)/Text.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/RuntimeStats.o: $(SOURCE_DIR)/RuntimeStats.cpp $(INCLUDE_DIR)/RuntimeStats.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(LIB_DIRECTORY)/$(BINARY).$(EXT): $(OBJECT_FILES) 
@@ -199,3 +217,20 @@ make.examples:
 
 make.config:
 	$(error Missing make.config file. Run configure script first)
+
+# Examples
+examples: dot fractal
+
+dot: 
+	$(MAKE) -C ./examples/dot build
+
+fractal:
+	$(MAKE) -C ./examples/fractal build
+
+examples-clean:
+	$(MAKE) -C ./examples/dot clean
+	$(MAKE) -C ./examples/fractal clean
+
+examples-distclean:
+	$(MAKE) -C ./examples/dot distclean
+	$(MAKE) -C ./examples/fractal distclean

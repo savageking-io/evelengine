@@ -11,6 +11,9 @@ ext=
 sdl_libs=
 build_id="unknown"
 archive_name="libevelengine"
+skip_deps=0
+conan_path=
+
 
 showhelp() 
 {
@@ -28,6 +31,12 @@ Options:
   --build-id=<build-id>
     Specify ID of the build
 
+  --skip-deps
+    Skips dependencies download via conan
+
+  --conan=<path-to-conan>
+    Specify path to conan binary
+
 HELPMSG
 }
 
@@ -39,6 +48,12 @@ while [ $# -ge 1 ]; do
 
     --build-id=*)
 		build_id="`echo ${1} | awk '{print substr($0,12)}'`" ;;
+
+    --skip-deps)
+        skip_deps=1 ;;
+
+    --conan=*)
+        conan_path="`echo ${1} | awk '{print substr($0,9)}'`" ;;
 
     --help)
  		showhelp
@@ -54,6 +69,29 @@ while [ $# -ge 1 ]; do
 
     shift
 done
+
+if [ $skip_deps -eq 1 ]; then
+    echo "Skipping dependencies download"
+else
+    if [ "$conan_path" != "" ]; then
+        echo "Specified path to conan: ${conan_path}"
+    else
+        conan_path=`which conan`
+    fi
+
+    if [ $? -ne 0 ]; then
+        echo "Conan not found"
+        conan_path=
+    else
+        echo "Found conan... $conan_path"
+    fi
+
+    if [ "$conan_path" != "" ]; then
+        echo "Downloading dependencies specified in .conanfile"
+
+        conan install ./.conanfile --build fmt --build gtest --build jsoncpp --build spdlog --build yaml-cpp --build bzip2 --build expat --build openssl --build sqlite3 --build zlib --build pcre --build poco -s compiler.libcxx=libstdc++11 > /tmp/conan-install.log
+    fi
+fi
 
 if [ "$trigger" == "cron" ]; then
     trigger="nightly"

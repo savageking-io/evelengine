@@ -16,12 +16,16 @@ namespace EvelEngine
     {
         auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         // console_sink->set_level(spdlog::level::debug);
-
-        auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("evel-engine.log", true);
-        // file_sink->set_level(spdlog::level::trace);
+        
+        std::shared_ptr<spdlog::sinks::basic_file_sink_mt> file_sink = nullptr;
+        try {
+            file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("evel-engine.log", true);
+        } catch (spdlog::spdlog_ex& e) {
+            error("Failed to initialize log files: {0}", e.what());
+        }
 
         _log = std::make_shared<spdlog::logger>("evel", console_sink );
-        _log->sinks().push_back(file_sink);
+        if (file_sink != nullptr) _log->sinks().push_back(file_sink);
         _log->set_level(spdlog::level::debug);
         info("Initializing loggin subsystem");
         spdlog::register_logger(_log);

@@ -5,11 +5,16 @@ dist
 make.config
 make.examples
 *.tar.gz
+assets
+.ycm*
+*.log
 
 # conan
 conan.lock
 conanbuildinfo.*
 conaninfo.*
 graph_info.json
+conan_ycm_extra_conf.py
+conan_ycm_flags.json
 
 
