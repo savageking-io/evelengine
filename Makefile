@@ -17,6 +17,8 @@ export APP_DIRECTORY=examples
 export BIN_DIRECTORY=$(CURDIR)/bin
 export BUILD_DIRECTORY=$(CURDIR)/build
 export DIST_DIRECTORY=$(CURDIR)/dist
+export ASSETS_DIRECTORY=$(CURDIR)/assets
+export TEMPLATES_DIRECTORY=$(CURDIR)/templates
 SOURCE_DIR=src
 INCLUDE_DIR=include
 CONFIGFILE=make.config
@@ -65,6 +67,7 @@ shared: $(LIB_DIRECTORY)/$(BINARY).$(EXT)
 static: directories
 static: $(LIB_DIRECTORY)/$(BINARY).a
 
+assets: assets-build
 
 doc:
 	doxygen docs/Doxyfile
@@ -72,7 +75,7 @@ doc:
 tests: lib
 	$(MAKE) -C ./testsuite suite
 
-assets: examples
+assets-build: 
 	$(MAKE) -C ./templates generate
 
 test: tests

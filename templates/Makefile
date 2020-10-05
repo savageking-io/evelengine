@@ -1,15 +1,14 @@
-ASSETS_PATH=../assets
-ASSETS_LIST=$(ASSETS_PATH)/fonts \
-			$(ASSETS_PATH)/configs \
-			$(ASSETS_PATH)/configs/game.yaml
+CONFIGS_DIR = $(ASSETS_DIRECTORY)/configs
+FONTS_DIR = $(ASSETS_DIRECTORY)/fonts
+ASSETS_LIST = $(CONFIGS_DIR)/game.yaml
 
-generate: $(ASSETS_LIST)
+generate: assets-dir $(ASSETS_LIST)
+	@echo "Generating assets from templates"
 
-$(ASSETS_PATH)/fonts:
-	@mkdir -p $@
+assets-dir:
+	@mkdir -p $(ASSETS_DIRECTORY)
+	@mkdir -p $(CONFIGS_DIR)
+	@mkdir -p $(FONTS_DIR)
 
-$(ASSETS_PATH)/configs:
-	@mkdir -p $@
-
-$(ASSETS_PATH)/configs/game.yaml: game.yaml
+$(CONFIGS_DIR)/game.yaml: $(TEMPLATES_DIRECTORY)/game.yaml
 	@cp $< $@

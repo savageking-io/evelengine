@@ -3,7 +3,7 @@
 namespace EvelEngine {
     ConfigurationBase::ConfigurationBase(const std::string& filepath) : _filepath(filepath)
     {
-
+        _log = Engine::get()->log();
     }
 
     ConfigurationBase::~ConfigurationBase()
@@ -23,6 +23,7 @@ namespace EvelEngine {
 
     void ConfigurationBase::defineOption(const std::string& name, Poco::DynamicAny value)
     {
+        if (_log) _log->debug("Defining new configuration option {0}", name);
         ConfigurationOption c;
         if (!value.isEmpty()) {
             c.value = value;

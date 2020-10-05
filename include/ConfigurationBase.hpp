@@ -5,6 +5,8 @@
 #include <string>
 #include "Poco/DynamicAny.h"
 
+#include "Engine.hpp"
+
 namespace EvelEngine {
 
     enum ConfigurationOptionType {
@@ -28,7 +30,8 @@ namespace EvelEngine {
             virtual void read();
             void defineOption(const std::string& name, Poco::DynamicAny value);
             ConfigurationOption* get(const std::string& name);
-        private:
+        protected:
+            Log* _log;
             std::string _filepath;
             std::vector<ConfigurationOption> _options;
     };

@@ -1,6 +1,7 @@
 #ifndef __CONFIGURATION_YAML_HPP__
 #define __CONFIGURATION_YAML_HPP__ 
 
+#include "yaml-cpp/yaml.h"
 #include "ConfigurationBase.hpp"
 
 namespace EvelEngine {

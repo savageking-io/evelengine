@@ -9,6 +9,7 @@
 #endif
 
 #include "Scene.hpp"
+#include "RuntimeStats.hpp"
 
 namespace EvelEngine {
 
@@ -138,6 +139,9 @@ namespace EvelEngine {
             _log->critical("Top-level scene is null. Forgot to initalize?");
             return -1;
         }
+
+        RuntimeStats rs;
+        rs.initialize();
 
         SDL_Event event;
         _running = true;
