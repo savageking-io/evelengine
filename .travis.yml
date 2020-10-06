@@ -11,7 +11,7 @@ install:
   - pyenv global 3.7
   - pip install conan cmake
   - conan user
-  - conan install ./.conanfile --build fmt --build gtest --build jsoncpp --build spdlog -s compiler.libcxx=libstdc++11
+  - conan install ./.conanfile --build fmt --build gtest --build jsoncpp --build spdlog --build yaml-cpp --build bzip2 --build expat --build openssl --build sqlite3 --build zlib --build pcre --build poco -s compiler.libcxx=libstdc++11
 
 script:
   - export CC=/usr/bin/gcc-10
