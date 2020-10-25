@@ -5,10 +5,10 @@ export CXXFLAGS=-DSPDLOG_FMT_EXTERNAL -g -I $(CURDIR)/include \
 	-I$(CONAN_ROOT_SPDLOG)/include \
 	-I$(CONAN_ROOT_FMT)/include \
 	-I$(CONAN_ROOT_JSONCPP)/include \
-	-I$(CONAN_ROOT_YAMLCPP)/include \
+	-I$(CONAN_ROOT_YAML-CPP)/include \
 	-I$(CONAN_ROOT_POCO)/include \
 	-std=c++17 -Wall
-export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -L$(CONAN_ROOT_YAMLCPP)/lib -L$(CONAN_ROOT_POCO)/lib $(SDL_LIBS) 
+export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -L$(CONAN_ROOT_YAML-CPP)/lib -L$(CONAN_ROOT_POCO)/lib $(SDL_LIBS) 
 #export LDFLAGS=-g -L$(CONAN_ROOT_JSONCPP)/lib -L$(CONAN_ROOT_FMT)/lib -L$(CONAN_ROOT_SPDLOG)/lib -lfmt -lspdlog $(SDL_LIBS) -ljsoncpp
 export BINARY=libevelengine
 export LIB_DIRECTORY=$(CURDIR)/lib
