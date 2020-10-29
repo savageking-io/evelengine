@@ -51,7 +51,7 @@ namespace EvelEngine
             range.tag = (*it).get("name", "").asString();
             range.start = (*it).get("from", 0).asInt();
             range.end = (*it).get("to", 0).asInt();
-            range.frames = range.end - range.start;
+            range.frames = range.end - range.start + 1;
             range.direction = 0;
             std::string direction = (*it).get("direction", "").asString();
             if (direction == "forward")
@@ -69,15 +69,25 @@ namespace EvelEngine
         for (Json::Value::iterator it = root["frames"].begin(); it != root["frames"].end(); ++it)
         {
             Frame f;
-            f.index = i;
+            f.index = -1;
+            int j = 0;
+            for (auto const& index : root["frames"].getMemberNames()) {
+                if (j == i) {
+                    f.index = atoi(index.c_str());
+                    break;
+                }
+                ++j;
+            }
             f.x = (*it)["frame"].get("x", 0).asInt();
             f.y = (*it)["frame"].get("y", 0).asInt();
             f.w = (*it)["frame"].get("w", 0).asInt();
             f.h = (*it)["frame"].get("h", 0).asInt();
-            _log->debug("Duration {0}", (*it).get("duration", 0).asInt());
+            _log->debug("Index: {0}, [{1}, {2}]x[{3}, {4}]", f.index, f.x, f.y, f.w, f.h);
             _frames.push_back(f);
             ++i;
         }
+        std::sort(_frames.begin(), _frames.end(), compare_index);
+        _log->info("{0} frames loaded", (i + 1));
         return _frames;
     }
     std::string AnimationFileJSON::marshal()

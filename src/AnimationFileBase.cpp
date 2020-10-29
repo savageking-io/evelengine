@@ -2,6 +2,11 @@
 
 namespace EvelEngine {
 
+    bool compare_index(const Frame &a, const Frame &b)
+    {
+        return a.index < b.index;
+    }
+
     AnimationFileBase::AnimationFileBase(const std::string& filename) : _filename(std::move(filename))
     {
 

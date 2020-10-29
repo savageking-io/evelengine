@@ -32,6 +32,9 @@ namespace EvelEngine {
         uint8_t direction;          ///< Direction of the animation
     };
 
+    // Used to compare indeces of frames for sorting
+    bool compare_index(const Frame &a, const Frame &b);
+
     ///
     /// \class AnimationFileBase
     /// \brief Base-class for all variants of animation files
@@ -94,6 +97,7 @@ namespace EvelEngine {
 
             //! Set frames to be marshaled
             void set(std::vector<Frame> frames);
+
         protected:
             std::string _filename;          ///< Filename of a data file
             std::string _texture;           ///< Filename of a texture

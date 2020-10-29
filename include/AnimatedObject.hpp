@@ -79,6 +79,7 @@ namespace EvelEngine {
             std::vector<Frame> _frames;                 ///< All frames
             std::map<std::string, FrameRange> _tags;    ///< Animation tags
             int _frame;                                 ///< Current frame
+            Uint32 _fd;
             FrameRange* _animation;
             Uint32 _lastTick;
             Timer* _timer;

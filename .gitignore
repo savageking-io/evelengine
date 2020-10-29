@@ -17,4 +17,5 @@ graph_info.json
 conan_ycm_extra_conf.py
 conan_ycm_flags.json
 
-
+# Example's scripts
+animation.sh

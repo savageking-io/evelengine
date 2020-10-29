@@ -14,6 +14,7 @@ namespace EvelEngine {
         // During creation of an animated object we will replace _filename with the actual texture file
         // TODO: Detect file type by extension
         _frame = 0;
+        _fd = 0;
         _lastTick = 0;
         _timer = new Timer(id);
         _timer->start();
@@ -64,13 +65,16 @@ namespace EvelEngine {
         if (_animation->frames != 0) {
             fd = (_timer->ticks() / 100) % _animation->frames;
         }
-        if (_frame + fd > _animation->end)
+
+        if (_animation->start + fd > _animation->end)
         {
+            _log->debug("!!!!!!!!!!!!!!!!!!!!");
             _timer->reset();
-            _frame = _animation->start;
+            _fd = 0;
         }
 
-        _log->debug("FD: {0}", fd);
+        //_log->debug("AT: {0} AS: {1} AE: {2} AF: {3}", _animation->tag, _animation->start, _animation->end, _animation->frames);
+        //_log->debug("FD: {0} Frame: {1} AE: {2}", fd, _frame, _animation->end);
 
         SDL_Rect src;
 
@@ -87,19 +91,19 @@ namespace EvelEngine {
         _lastTick = SDL_GetTicks();
 
         /*
-        ++_frame;
-        if (_animation != nullptr)
-        {
-            if (_frame > _animation->end)
-            {
-                _frame = _animation->start;
-            }
-        }
-        else 
-        {
-            if (_frame > int(_frames.size() - 1)) _frame = 0;
-        }
-        */
+           ++_frame;
+           if (_animation != nullptr)
+           {
+           if (_frame > _animation->end)
+           {
+           _frame = _animation->start;
+           }
+           }
+           else 
+           {
+           if (_frame > int(_frames.size() - 1)) _frame = 0;
+           }
+           */
 
         //_log->debug("Playing frame #{0}", _frame);
 
@@ -108,21 +112,13 @@ namespace EvelEngine {
 
     bool AnimatedObject::animation(const std::string& tag)
     {
-        try 
-        {
-            auto nt = _tags.at(tag);
-            _animation = &nt;
-            _frame = nt.start;
-            _log->debug("{0} switched animation to {1} [{2}-{3}]", _id, _animation->tag, _animation->start, _animation->end);
-            return true;
-        } 
-        catch (std::out_of_range& ex) 
-        {
-            _animation = nullptr;
-            _log->error("Failed to switch animation. {0} is not defined", tag);
-            return false;
-        }
-        return false;
+        auto nt = _tags.find(tag);
+        if (nt == _tags.end()) { return false; }
+        _animation = &nt->second;
+        _frame = _animation->start;
+        _fd = 0;
+        _log->debug("{0} switched animation to {1} [{2}-{3}]", _id, _animation->tag, _animation->start, _animation->end);
+        return true;
     }
 
     const FrameRange* AnimatedObject::animation() const 
@@ -138,4 +134,5 @@ namespace EvelEngine {
         }
         return tags;
     }
+
 }

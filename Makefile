@@ -222,7 +222,7 @@ make.config:
 	$(error Missing make.config file. Run configure script first)
 
 # Examples
-examples: dot fractal
+examples: dot fractal animation
 
 dot: 
 	$(MAKE) -C ./examples/dot build
@@ -230,10 +230,15 @@ dot:
 fractal:
 	$(MAKE) -C ./examples/fractal build
 
+animation:
+	$(MAKE) -C ./examples/animation build
+
 examples-clean:
 	$(MAKE) -C ./examples/dot clean
 	$(MAKE) -C ./examples/fractal clean
+	$(MAKE) -C ./examples/animation clean
 
 examples-distclean:
 	$(MAKE) -C ./examples/dot distclean
 	$(MAKE) -C ./examples/fractal distclean
+	$(MAKE) -C ./examples/animation distclean
