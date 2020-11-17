@@ -16,6 +16,7 @@ namespace EvelEngine
         requestVideoDriver();
         requestDisplayName();
         requestWindowSize();
+        requestViewport();
     }
 
     const std::string& RuntimeStats::videoDriver() const
@@ -54,5 +55,13 @@ namespace EvelEngine
         h = w = 0;
         SDL_GetRendererOutputSize(Engine::get()->renderer(), &w, &h);
         if (_log) _log->debug("GL Render Output Size is: {0}x{1}", w, h);
+    }
+
+    void RuntimeStats::requestViewport()
+    {
+        if (_log) _log->debug("Requesting viewport");
+        SDL_Rect r;
+        SDL_RenderGetViewport(Engine::get()->renderer(), &r);
+        if (_log) _log->debug("VP: {0} {1} {2} {3}", r.x, r.y, r.w, r.h);
     }
 }
