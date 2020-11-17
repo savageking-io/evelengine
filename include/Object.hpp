@@ -84,6 +84,7 @@ namespace EvelEngine {
     };
 
     std::shared_ptr<Object> NewObject(const std::string& id, Engine* engine, const std::string& filename);
+    std::shared_ptr<Object> NewObject(const std::string& id, const std::string& filename);
     std::shared_ptr<Object>  NewObjectInQueue(const std::string& id, Engine* engine, const std::string& filename);
 };
 

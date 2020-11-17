@@ -3,9 +3,9 @@
 
 namespace EvelEngine
 {
-    EventBase::EventBase(const std::string& id, Engine* engine) : _id(id), _engine(engine)
+    EventBase::EventBase(const std::string& id) : _id(id)
     {
-
+        _engine = Engine::get();
     }
 
     const std::string& EventBase::id() const

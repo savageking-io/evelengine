@@ -58,6 +58,8 @@ namespace EvelEngine {
             int run();
             void enableConsole();
 
+            void resize();
+
             //! Returns width of the window
             /*!
              * \return int window width
@@ -93,6 +95,12 @@ namespace EvelEngine {
              * \return SDL_Renderer
              */
             SDL_Renderer* renderer();
+
+            //! Returns a reference to SDL_Window created by the engine
+            /*!
+             * \return SDL_Window
+             */
+            SDL_Window* window();
 
             //! Returns top-level scene
             /*!

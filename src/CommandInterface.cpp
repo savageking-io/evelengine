@@ -3,23 +3,24 @@
 
 namespace EvelEngine {
 
-#define FONT_FILE "assets/fonts/DisposableDroidBB.ttf"
-#define FONT_SIZE 16
+#define FONT_FILE "assets/fonts/minecraft.ttf"
+#define FONT_SIZE 11
 
-CommandInterface::CommandInterface(const std::string& id, Engine* engine)
-    : EventBase(id, engine)
-    , _isActive(false)
+CommandInterface::CommandInterface(const std::string& id) : 
+    EventBase(id), 
+    _isActive(false)
 {
+    auto engine = Engine::get();
     _renderer = _engine->renderer();
 
     _log = engine->log();
     _log->info("Initializing command interface");
 
-    _rect = new SDL_Rect();
-    _rect->h = engine->getWindowHeight() / 2;
-    _rect->w = engine->getWindowWidth();
-    _rect->x = 0;
-    _rect->y = 0;
+    //_rect = new SDL_Rect();
+    _rect.h = engine->getWindowHeight() / 2;
+    _rect.w = engine->getWindowWidth();
+    _rect.x = 0;
+    _rect.y = 0;
 
     _fontSize = FONT_SIZE;
 
@@ -30,7 +31,7 @@ CommandInterface::~CommandInterface()
 {
     _log->info("Shutting down command interface");
     TTF_CloseFont(_font);
-    delete _rect;
+    //delete _rect;
 }
 
 void CommandInterface::loadFont(const std::string& file, int size)
@@ -44,6 +45,7 @@ void CommandInterface::loadFont(const std::string& file, int size)
 void CommandInterface::activate()
 {
     _log->debug("Activating console");
+    _log->debug("Console rect: {0} {1} {2} {3}", _rect.x, _rect.y, _rect.w, _rect.h);
     _isActive = true;
     _historyCursor = 0;
     updateInput();
@@ -163,15 +165,14 @@ void CommandInterface::Render()
     if (_history.size() == 0)
         updateHistory();
 
+    // Draw console background
+    drawBackground();
+    return;
+
     SDL_Rect dst;
-
-    // Draw console
-    SDL_SetRenderDrawColor(_renderer, 44, 44, 44, 200);
-    SDL_RenderFillRect(_renderer, _rect);
-
     int w = 0;
     int h = 0;
-    int i = _rect->h - _fontSize - 5;
+    int i = _rect.h - _fontSize - 5;
     for (auto it = _historyTexture.rbegin(); it != _historyTexture.rend(); it++) {
         if ((*it) == NULL)
             continue;
@@ -183,7 +184,7 @@ void CommandInterface::Render()
     }
 
     SDL_QueryTexture(_inputTexture, NULL, NULL, &w, &h);
-    dst = { 5, _rect->h - h, w, h };
+    dst = { 5, _rect.h - h, w, h };
     SDL_RenderCopy(_renderer, _inputTexture, NULL, &dst);
 }
 
@@ -299,12 +300,12 @@ void CommandInterface::process(const std::string& command)
 
 void CommandInterface::setWidth(int w)
 {
-    _rect->w = w;
+    _rect.w = w;
 }
 
 void CommandInterface::setHeight(int h)
 {
-    _rect->h = h;
+    _rect.h = h;
 }
 
 void CommandInterface::splitOutput(const std::string& output)
@@ -315,5 +316,17 @@ void CommandInterface::splitOutput(const std::string& output)
     while (std::getline(ss, to, '\n')) {
         _history.push_back(to);
     }
+}
+
+void CommandInterface::drawBackground()
+{
+    auto rect = SDL_Rect{0, 0, _engine->getWindowWidth(), _engine->getWindowHeight()};
+    SDL_SetRenderDrawColor(_renderer, 44, 44, 44, 200);
+    SDL_RenderFillRect(_renderer, &rect);
+}
+
+void CommandInterface::drawHistory()
+{
+
 }
 }

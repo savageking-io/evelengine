@@ -12,6 +12,16 @@ std::shared_ptr<Object> NewObject(const std::string& id, Engine* engine, const s
     return obj;
 }
 
+std::shared_ptr<Object> NewObject(const std::string& id, const std::string& filename)
+{
+    auto obj = std::make_shared<Object>(id, Engine::get()->manager(), Engine::get()->renderer(), filename, Engine::get()->log());
+    if (!obj->load()) {
+        return nullptr;
+    }
+    return obj;
+}
+
+
 std::shared_ptr<Object> NewObjectInQueue(const std::string& id, Engine* engine, const std::string& filename)
 {
     if (engine == nullptr) {

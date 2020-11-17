@@ -1,7 +1,7 @@
 #include "Engine.hpp"
 #include "Scene.hpp"
 #include "CommonConsole.hpp"
-#include "AnimatedObject.hpp"
+#include "Object.hpp"
 
 #define SCREEN_W 720
 #define SCREEN_H 480
@@ -19,12 +19,10 @@ int main(int argc, char* argv[])
     auto cmd = new CommonConsole();
     engine->cli()->subscribe(cmd);
 
-    auto priestess = EvelEngine::NewAnimatedObject("priestess", "assets/sprites/priestess.json");
-    priestess->load();
-    priestess->animation("walk_s");
-    priestess->setPosition(0, 0);
+    auto box = EvelEngine::NewObject("green-box", "assets/sprites/green-box.png");
+    box->setPosition(0, 0);
 
-    engine->scene()->addObject(priestess);
+    engine->scene()->addObject(box);
 
     return engine->run();
 }

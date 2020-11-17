@@ -1,4 +1,5 @@
 OBJ = $(BUILD_DIRECTORY)/examples/animation/animation.o \
+	  $(BUILD_DIRECTORY)/examples/animation/CommonEvents.o \
 	  $(BUILD_DIRECTORY)/examples/animation/CommonConsole.o
 
 build: animation-dirs $(BIN_DIRECTORY)/animation
@@ -10,6 +11,9 @@ $(BUILD_DIRECTORY)/examples/animation/animation.o: animation.cpp
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@
 
 $(BUILD_DIRECTORY)/examples/animation/CommonConsole.o: ../common/CommonConsole.cpp 
+	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@
+
+$(BUILD_DIRECTORY)/examples/animation/CommonEvents.o: ../common/CommonEvents.cpp 
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@
 
 animation-dirs:

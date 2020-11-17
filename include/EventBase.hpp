@@ -28,7 +28,7 @@ namespace EvelEngine
             /// \sa Event
             
             //! Constructor
-            EventBase(const std::string& id, Engine *engine);
+            EventBase(const std::string& id);
 
             //! ID of the event class
             /*!

@@ -83,11 +83,16 @@ namespace EvelEngine {
         _log->debug("Creating new window {0}x{1}", _windowWidth, _windowHeight);
         if ((_window = SDL_CreateWindow("My SDL Game", SDL_WINDOWPOS_UNDEFINED,
                         SDL_WINDOWPOS_UNDEFINED, _windowWidth, _windowHeight,
-                        SDL_WINDOW_SHOWN))
+                        SDL_WINDOW_RESIZABLE))
                 == NULL) {
             _log->critical("Failed to initialize SDL2 window: ", SDL_GetError());
             return;
         }
+
+        SDL_SetWindowSize(_window, _windowWidth, _windowHeight);
+
+        // SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN);
+
 
         // _surface = SDL_GetWindowSurface(_window);
 
@@ -119,10 +124,10 @@ namespace EvelEngine {
 
         _fs = new FileSystem("", _log);
         _manager = new ResourceManager(_renderer, _fs, _log);
-        _scene = new Scene("top-level", _log);
+        _scene = new Scene("__top-level__", _log);
         _event = new Event();
         _camera = new Camera(_windowWidth, _windowHeight);
-        _command = new CommandInterface("cli", this);
+        _command = new CommandInterface("cli");
         _event->subscribe(_command);
         _stats = new Stats();
         _stats->load();
@@ -168,8 +173,14 @@ namespace EvelEngine {
             SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x88, 0xFF);
             SDL_RenderClear(_renderer);
             _scene->render(_camera, delta);
+            // TODO: Lowercase Render method
             if (_command) _command->Render();
             if (_stats) _stats->render();
+
+            SDL_SetRenderDrawColor(_renderer, 0x30, 0x30, 0x30, 0xFF);
+            auto rect = SDL_Rect{20, 20, 30, 30};
+            SDL_RenderFillRect(_renderer, &rect);
+
             SDL_RenderPresent(_renderer);
             loadFromQueue();
 
@@ -183,6 +194,11 @@ namespace EvelEngine {
         }
         deinitialize();
         return 0;
+    }
+
+    void Engine::resize()
+    {
+        SDL_SetWindowSize(_window, _windowWidth, _windowHeight);
     }
 
     void Engine::enableConsole() {}
@@ -250,6 +266,8 @@ namespace EvelEngine {
      * \return SDL_Renderer Active Renderer
      */
     SDL_Renderer* Engine::renderer() { return _renderer; }
+
+    SDL_Window* Engine::window() { return _window; }
 
     //! Returns reference to top-level Scene
     /*

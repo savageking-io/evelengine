@@ -15,6 +15,7 @@ namespace EvelEngine
         if (_log) _log->info("Initializing Runtime Statistics subsystem");
         requestVideoDriver();
         requestDisplayName();
+        requestWindowSize();
     }
 
     const std::string& RuntimeStats::videoDriver() const
@@ -39,5 +40,19 @@ namespace EvelEngine
         if (_log) _log->debug("Requesting Display Name");
         _displayName = std::string(SDL_GetDisplayName(0));
         if (_log) _log->info("Display Name: {0}", _displayName);
+    }
+
+    void RuntimeStats::requestWindowSize()
+    {
+        if (_log) _log->debug("Requesting window size");
+        int h = 0, w = 0;
+        SDL_GetWindowSize(Engine::get()->window(), &w, &h);
+        if (_log) _log->debug("Window Size is: {0}x{1}", w, h);
+        h = w = 0;
+        SDL_GL_GetDrawableSize(Engine::get()->window(), &w, &h);
+        if (_log) _log->debug("Window Drawable Size is: {0}x{1}", w, h);
+        h = w = 0;
+        SDL_GetRendererOutputSize(Engine::get()->renderer(), &w, &h);
+        if (_log) _log->debug("GL Render Output Size is: {0}x{1}", w, h);
     }
 }

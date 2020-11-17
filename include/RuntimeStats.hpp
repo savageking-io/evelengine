@@ -18,6 +18,7 @@ namespace EvelEngine
         private:
             void requestVideoDriver();
             void requestDisplayName();
+            void requestWindowSize();
             Log* _log;
             std::string _videoDriver;
             std::string _displayName;

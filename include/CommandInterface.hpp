@@ -25,7 +25,7 @@ class Engine;
 
 class CommandInterface : public EventBase {
 public:
-    CommandInterface(const std::string& id, Engine* engine);
+    CommandInterface(const std::string& id);
     virtual ~CommandInterface();
     void loadFont(const std::string& file, int size);
     void activate();
@@ -48,12 +48,14 @@ protected:
     // splitOutput will split string by newlines
     void splitOutput(const std::string& output);
 private:
+    void drawBackground();                      
+    void drawHistory();
     int _fontSize;                                  ///< Current size of the font
     bool _isActive;                                 ///< Whether console is active or not
     SDL_Renderer* _renderer;                        ///< Reference to SDL_Renderer
     SDL_Texture* _inputTexture;                     ///< Texture of the input line
     std::vector<SDL_Texture*> _historyTexture;      ///< Textures of the history (past commands)
-    SDL_Rect* _rect;                                ///< 
+    SDL_Rect _rect;                                ///< 
     TTF_Font* _font;                                ///< Current font used
     std::string _buffer;                            ///< Input buffer
     std::vector<std::string> _history;              ///< Full history of previous output

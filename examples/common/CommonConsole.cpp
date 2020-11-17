@@ -17,5 +17,10 @@ bool CommonConsole::handleCommand(const std::string& cmd)
         _engine->simulation()->setState(EvelEngine::SIM_SHUTDOWN);
         return true;
     } 
+    else if (cmd == "refresh")
+    {
+        _engine->resize();
+        return true;
+    }
     return false;
 }

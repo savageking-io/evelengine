@@ -5,7 +5,6 @@ dist
 make.config
 make.examples
 *.tar.gz
-assets
 .ycm*
 *.log
 
@@ -19,3 +18,11 @@ conan_ycm_flags.json
 
 # Example's scripts
 animation.sh
+render.sh
+
+# Assets
+assets/ui/uipack_rpg_sheet.png
+assets/priestess.json
+assets/priestess.png
+assets/fonts
+
