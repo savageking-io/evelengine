@@ -19,6 +19,7 @@ conan_ycm_flags.json
 # Example's scripts
 animation.sh
 render.sh
+landscape.sh
 
 # Assets
 assets/ui/uipack_rpg_sheet.png
@@ -26,3 +27,5 @@ assets/priestess.json
 assets/priestess.png
 assets/fonts
 
+# Misc
+include/PerlinNoise.hpp

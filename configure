@@ -146,6 +146,9 @@ for file in `ls examples`; do
     fi
 done
 
+echo "Download PerlinNoise.hpp from github.com/Reputeless/PerlinNoise"
+wget https://raw.githubusercontent.com/Reputeless/PerlinNoise/master/PerlinNoise.hpp -o include/PerlinNoise.hpp
+
 archive_name="${archive_name}-${trigger}-${version}"
 
 if [ "$build_id" != "unknown" ]; then

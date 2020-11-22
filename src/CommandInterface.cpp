@@ -167,7 +167,6 @@ void CommandInterface::Render()
 
     // Draw console background
     drawBackground();
-    return;
 
     SDL_Rect dst;
     int w = 0;
@@ -320,9 +319,8 @@ void CommandInterface::splitOutput(const std::string& output)
 
 void CommandInterface::drawBackground()
 {
-    auto rect = SDL_Rect{0, 0, _engine->getWindowWidth(), _engine->getWindowHeight()};
     SDL_SetRenderDrawColor(_renderer, 44, 44, 44, 200);
-    SDL_RenderFillRect(_renderer, &rect);
+    SDL_RenderFillRect(_renderer, &_rect);
 }
 
 void CommandInterface::drawHistory()

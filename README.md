@@ -14,6 +14,11 @@ make
 make install
 ```
 
+### Windows
+In Visual Studio Code select Extensions, search for `conan` and install it [Read more about extensions](https://docs.conan.io/en/latest/integrations/ide/visual_studio.html).
+
+
+
 # Additional files
 If you wish to run examples you need a [Minecraft Font by Pwnage Block](https://www.deviantart.com/pwnage-block/art/Minecraft-Font-194517479)
 
