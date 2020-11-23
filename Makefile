@@ -222,7 +222,7 @@ make.config:
 	$(error Missing make.config file. Run configure script first)
 
 # Examples
-examples: render dot fractal animation landscape-generator
+examples: render dot fractal animation landscape-generator noise
 
 render:
 	$(MAKE) -C ./examples/render build
@@ -239,12 +239,16 @@ animation:
 landscape-generator:
 	$(MAKE) -C ./examples/landscape-generator build
 
+noise:
+	$(MAKE) -C ./examples/noise build
+
 examples-clean:
 	$(MAKE) -C ./examples/render clean
 	$(MAKE) -C ./examples/dot clean
 	$(MAKE) -C ./examples/fractal clean
 	$(MAKE) -C ./examples/animation clean
 	$(MAKE) -C ./examples/landscape-generator clean
+	$(MAKE) -C ./examples/noise clean
 
 examples-distclean:
 	$(MAKE) -C ./examples/render distclean
@@ -252,3 +256,4 @@ examples-distclean:
 	$(MAKE) -C ./examples/fractal distclean
 	$(MAKE) -C ./examples/animation distclean
 	$(MAKE) -C ./examples/landscape-generator distclean
+	$(MAKE) -C ./examples/noise distclean

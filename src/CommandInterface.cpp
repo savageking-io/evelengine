@@ -327,4 +327,9 @@ void CommandInterface::drawHistory()
 {
 
 }
+
+void CommandInterface::addToHistory(const std::string& item)
+{
+    _history.push_back(item);
+}
 }

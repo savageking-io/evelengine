@@ -62,6 +62,7 @@ namespace EvelEngine {
              * \return std::vector of found objects
              */
             std::vector<std::shared_ptr<Object>> findObjects(int x, int y);
+            void clear();
         private:
             std::vector<std::shared_ptr<Scene>>     _scenes;    ///< List of child scenes
             std::vector<std::shared_ptr<Object>>    _objects;   ///< List of attached objects

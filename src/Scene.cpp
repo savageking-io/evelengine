@@ -60,4 +60,14 @@ std::vector<std::shared_ptr<Object>> Scene::findObjects(int x, int y) {
     return result;
 }
 
+void Scene::clear()
+{
+    _objects.clear();
+    return;
+    for (auto it = _objects.begin(); it != _objects.end(); it++)
+    {
+        it->reset();
+    }    
+}
+
 }

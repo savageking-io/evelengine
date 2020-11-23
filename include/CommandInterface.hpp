@@ -47,6 +47,7 @@ protected:
     void updateHistory();
     // splitOutput will split string by newlines
     void splitOutput(const std::string& output);
+    void addToHistory(const std::string& item);
 private:
     void drawBackground();                      
     void drawHistory();

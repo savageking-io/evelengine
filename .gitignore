@@ -20,6 +20,7 @@ conan_ycm_flags.json
 animation.sh
 render.sh
 landscape.sh
+noise.sh
 
 # Assets
 assets/ui/uipack_rpg_sheet.png
