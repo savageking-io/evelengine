@@ -147,7 +147,7 @@ for file in `ls examples`; do
 done
 
 echo "Download PerlinNoise.hpp from github.com/Reputeless/PerlinNoise"
-wget https://raw.githubusercontent.com/Reputeless/PerlinNoise/master/PerlinNoise.hpp -o include/PerlinNoise.hpp
+wget https://raw.githubusercontent.com/Reputeless/PerlinNoise/master/PerlinNoise.hpp -O include/PerlinNoise.hpp
 
 archive_name="${archive_name}-${trigger}-${version}"
 
