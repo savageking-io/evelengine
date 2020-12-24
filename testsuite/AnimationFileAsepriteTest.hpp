@@ -1,8 +1,8 @@
 #include <cppunit/extensions/HelperMacros.h>
 
-class AnimationFileJSONTest : public CppUnit::TestFixture
+class AnimationFileAsepriteTest : public CppUnit::TestFixture
 {
-    CPPUNIT_TEST_SUITE( AnimationFileJSONTest );
+    CPPUNIT_TEST_SUITE( AnimationFileAsepriteTest );
     CPPUNIT_TEST( testUnmarshal);
     CPPUNIT_TEST_SUITE_END();
 

@@ -5,7 +5,7 @@ OBJ = $(BUILD_DIRECTORY)/examples/render/render.o \
 build: render-dirs $(BIN_DIRECTORY)/render
 
 $(BIN_DIRECTORY)/render: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/examples/render/render.o: render.cpp
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@

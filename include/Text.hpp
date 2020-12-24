@@ -13,11 +13,15 @@ namespace EvelEngine {
       bool load();
       void render(Camera* camera, double delta);
       void update();
+      void setSize(int size);
     private:
       Font* _font;
       SDL_Texture* _texture;
       SDL_Color _color;
+      int _size;
   };
+
+  std::shared_ptr<Text> NewText(const std::string& text, const std::string& font);
 }
 
 #endif

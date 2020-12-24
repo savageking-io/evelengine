@@ -1,10 +1,13 @@
 #include "Text.hpp"
+#include "Engine.hpp"
 
 namespace EvelEngine {
 
 Text::Text(const std::string& id, ResourceManager* manager, SDL_Renderer* renderer, const std::string& filename, Log* log)
     : Object(id, manager, renderer, filename, log)
 {
+    _color = SDL_Color{0, 0, 0, 255};
+    _size = 15;
 }
 
 Text::~Text()
@@ -16,9 +19,14 @@ void Text::setColor(SDL_Color color)
     _color = color;
 }
 
+void Text::setSize(int size)
+{
+    _size = size;
+}
+
 bool Text::load()
 {
-    _font = new Font(_filename, 15, _log);
+    _font = new Font(_filename, _size, _log);
     if (!_font->load()) {
         _log->error("Can't load font: {0}", _filename);
         return false;
@@ -29,7 +37,7 @@ bool Text::load()
 
 void Text::render(Camera* camera, double delta)
 {
-    if (_texture == nullptr) {
+    if (!_loaded || _font == nullptr || _texture == nullptr) {
         return;
     }
     
@@ -58,5 +66,15 @@ void Text::update()
 
     SDL_QueryTexture(_texture, NULL, NULL, &_w, &_h);
     SDL_FreeSurface(surf);
+}
+
+std::shared_ptr<Text> NewText(const std::string& text, const std::string& font)
+{
+    auto engine = Engine::get();
+    auto obj = std::make_shared<Text>(text, engine->manager(), engine->renderer(), font, engine->log());
+    if (!obj->load()) {
+        return nullptr;
+    }
+    return obj;
 }
 }

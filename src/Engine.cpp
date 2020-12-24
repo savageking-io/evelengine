@@ -177,9 +177,9 @@ namespace EvelEngine {
             if (_command) _command->Render();
             if (_stats) _stats->render();
 
-            SDL_SetRenderDrawColor(_renderer, 0x30, 0x30, 0x30, 0xFF);
-            auto rect = SDL_Rect{20, 20, 30, 30};
-            SDL_RenderFillRect(_renderer, &rect);
+            // SDL_SetRenderDrawColor(_renderer, 0x30, 0x30, 0x30, 0xFF);
+            // auto rect = SDL_Rect{20, 20, 30, 30};
+            // SDL_RenderFillRect(_renderer, &rect);
 
             SDL_RenderPresent(_renderer);
             loadFromQueue();

@@ -6,7 +6,7 @@ OBJ = $(BUILD_DIRECTORY)/examples/noise/noise.o \
 build: noise-dirs $(BIN_DIRECTORY)/noise
 
 $(BIN_DIRECTORY)/noise: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/examples/noise/noise.o: noise.cpp
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@

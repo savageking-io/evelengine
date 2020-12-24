@@ -16,12 +16,12 @@
 namespace EvelEngine
 {
     ///
-    /// \class AnimationFileJSON
+    /// \class AnimationFileAseprite
     /// \brief Animation file in JSON format
     /// 
-    /// Currently recognizes JSON file exported from Aseprite
+    /// Recognizes JSON file exported from Aseprite
     /// \sa AnimationFileBase
-    class AnimationFileJSON : public AnimationFileBase
+    class AnimationFileAseprite : public AnimationFileBase
     {
         public:
             //! Constructor
@@ -30,7 +30,7 @@ namespace EvelEngine
              * 
              * \param filename - path to the animation specification
              */
-            AnimationFileJSON(const std::string& jsonfile);
+            AnimationFileAseprite(const std::string& jsonfile);
 
             //! Constructor
             /*!
@@ -38,7 +38,7 @@ namespace EvelEngine
              * 
              * \param filename - path to the animation specification
              */
-            ~AnimationFileJSON();
+            ~AnimationFileAseprite();
 
             //! Unmarshal provided JSON file
             /*!

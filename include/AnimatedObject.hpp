@@ -7,7 +7,7 @@
 #include "Timer.hpp"
 
 #include "AnimationFileBase.hpp"
-#include "AnimationFileJSON.hpp"
+#include "AnimationFileAseprite.hpp"
 
 #define FPS 1000.0f / 30
 
@@ -48,7 +48,7 @@ namespace EvelEngine {
              * Method will request texture file and will load it like a normal object
              *
              * \return bool whether load was successful or not
-             * \sa AnimationFileBase AnimationFileJSON
+             * \sa AnimationFileBase AnimationFileAseprite
              */
             bool load();
 

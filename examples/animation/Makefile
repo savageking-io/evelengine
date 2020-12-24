@@ -5,7 +5,7 @@ OBJ = $(BUILD_DIRECTORY)/examples/animation/animation.o \
 build: animation-dirs $(BIN_DIRECTORY)/animation
 
 $(BIN_DIRECTORY)/animation: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/examples/animation/animation.o: animation.cpp
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@

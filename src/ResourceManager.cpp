@@ -1,8 +1,11 @@
 #include "ResourceManager.hpp"
 
+#include "Poco/Path.h"
+
 #include "Texture.hpp"
 #include "AnimationFileBase.hpp"
-#include "AnimationFileJSON.hpp"
+#include "AnimationFileAseprite.hpp"
+#include "AnimationFileShoeBox.hpp"
 #include "Assert.hpp"
 
 namespace EvelEngine {
@@ -82,15 +85,31 @@ namespace EvelEngine {
             _log->error("Animation file {0} wasn't found", path);
             return nullptr;
         }
-        auto af = std::make_shared<AnimationFileJSON>(fullPath);
-        af->unmarshal();
-        if (af->get().size() == 0 || af->texture() == "") 
-        {
-            return nullptr;
+
+        Poco::Path p(fullPath);
+        _log->debug("Animation file extension: {0}", p.getExtension());
+        if (p.getExtension() == "json") {
+            auto af = std::make_shared<AnimationFileAseprite>(fullPath);
+            af->unmarshal();
+            if (af->get().size() == 0 || af->texture() == "") 
+            {
+                return nullptr;
+            }
+            _animationFiles.insert(std::pair<std::string, std::shared_ptr<AnimationFileBase> >(fullPath, af));
+            return af;
+        } 
+        else if (p.getExtension() == "xml") {
+            auto af = std::make_shared<AnimationFileShoeBox>(fullPath);
+            af->unmarshal();
+            if (af->get().size() == 0 || af->texture() == "") 
+            {
+                return nullptr;
+            }
+            _animationFiles.insert(std::pair<std::string, std::shared_ptr<AnimationFileBase> >(fullPath, af));
+            return af;
         }
 
-        _animationFiles.insert(std::pair<std::string, std::shared_ptr<AnimationFileBase> >(fullPath, af));
-        return af;
+        return nullptr;   
     }
 
 }

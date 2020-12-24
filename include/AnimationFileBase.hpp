@@ -102,7 +102,7 @@ namespace EvelEngine {
             std::string _filename;          ///< Filename of a data file
             std::string _texture;           ///< Filename of a texture
             std::vector<Frame> _frames;     ///< Frames extracted from data file
-            std::vector<FrameRange> _tags;
+            std::vector<FrameRange> _tags;  ///< Frame tags
     };
 }
 

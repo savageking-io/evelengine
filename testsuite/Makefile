@@ -1,4 +1,5 @@
-OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o \
+OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileAsepriteTest.o \
+	$(BUILD_DIRECTORY)/testsuite/AnimationFileShoeBoxTest.o \
 	$(BUILD_DIRECTORY)/testsuite/StringsUtilTest.o \
 	$(BUILD_DIRECTORY)/testsuite/ConfigurationBaseTest.o \
 	$(BUILD_DIRECTORY)/testsuite/FileSystemTest.o \
@@ -7,9 +8,12 @@ OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o \
 suite: test-dirs $(BIN_DIRECTORY)/testsuite
 
 $(BIN_DIRECTORY)/testsuite: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
-$(BUILD_DIRECTORY)/testsuite/AnimationFileJSONTest.o: AnimationFileJSONTest.cpp AnimationFileJSONTest.hpp
+$(BUILD_DIRECTORY)/testsuite/AnimationFileAsepriteTest.o: AnimationFileAsepriteTest.cpp AnimationFileAsepriteTest.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIRECTORY)/testsuite/AnimationFileShoeBoxTest.o: AnimationFileShoeBoxTest.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIRECTORY)/testsuite/ConfigurationBaseTest.o: ConfigurationBaseTest.cpp ConfigurationBaseTest.hpp

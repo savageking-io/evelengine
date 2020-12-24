@@ -27,7 +27,7 @@ namespace EvelEngine
     void Stats::load()
     {
         // TODO: Unhardcode this
-        _font = TTF_OpenFont("assets/fonts/fff.ttf", 30);
+        _font = TTF_OpenFont("assets/kenney_fontpackage/Fonts/Kenney Blocks.ttf", 30);
         if (_font == NULL) {
             _log->warn("Failed to load font: {0}", TTF_GetError());
             return;

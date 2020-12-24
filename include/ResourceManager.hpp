@@ -11,7 +11,7 @@ namespace EvelEngine {
 
     class Texture;
     class AnimationFileBase;
-    class AnimationFileJSON;
+    class AnimationFileAseprite;
     
     class ResourceManager {
         public:

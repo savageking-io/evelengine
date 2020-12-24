@@ -1,6 +1,6 @@
 
 #include <cppunit/ui/text/TestRunner.h>
-#include "AnimationFileJSONTest.hpp"
+#include "AnimationFileAsepriteTest.hpp"
 
 int main(int argc, char* argv[])
 {  

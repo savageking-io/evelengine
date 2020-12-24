@@ -1,18 +1,18 @@
-#include "AnimationFileJSON.hpp"
+#include "AnimationFileAseprite.hpp"
 
 namespace EvelEngine
 {
-    AnimationFileJSON::AnimationFileJSON(const std::string& jsonfile) : AnimationFileBase(jsonfile)
+    AnimationFileAseprite::AnimationFileAseprite(const std::string& jsonfile) : AnimationFileBase(jsonfile)
     {
         _log = Engine::get()->log();
     }
 
-    AnimationFileJSON::~AnimationFileJSON()
+    AnimationFileAseprite::~AnimationFileAseprite()
     {
 
     }
 
-    std::vector<Frame> AnimationFileJSON::unmarshal()
+    std::vector<Frame> AnimationFileAseprite::unmarshal()
     {
         // Reset path to texture
         _texture = "";
@@ -90,7 +90,7 @@ namespace EvelEngine
         _log->info("{0} frames loaded", (i + 1));
         return _frames;
     }
-    std::string AnimationFileJSON::marshal()
+    std::string AnimationFileAseprite::marshal()
     {
         return "";
     }

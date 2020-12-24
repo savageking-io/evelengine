@@ -3,7 +3,7 @@ OBJ = $(BUILD_DIRECTORY)/examples/fractal/fractal.o
 build: fractal-dirs $(BIN_DIRECTORY)/fractal
 
 $(BIN_DIRECTORY)/fractal: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/examples/fractal/fractal.o: fractal.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@

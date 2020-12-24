@@ -34,7 +34,8 @@ OBJECT_FILES =  $(BUILD_DIRECTORY)/Engine.o \
 		$(BUILD_DIRECTORY)/Object.o \
 		$(BUILD_DIRECTORY)/Tileset.o \
 		$(BUILD_DIRECTORY)/AnimationFileBase.o \
-		$(BUILD_DIRECTORY)/AnimationFileJSON.o \
+		$(BUILD_DIRECTORY)/AnimationFileAseprite.o \
+		$(BUILD_DIRECTORY)/AnimationFileShoeBox.o \
 		$(BUILD_DIRECTORY)/AnimatedObject.o \
 		$(BUILD_DIRECTORY)/Level.o \
 		$(BUILD_DIRECTORY)/Texture.o \
@@ -152,7 +153,10 @@ $(BUILD_DIRECTORY)/Tileset.o: $(SOURCE_DIR)/Tileset.cpp $(INCLUDE_DIR)/Tileset.h
 $(BUILD_DIRECTORY)/AnimationFileBase.o: $(SOURCE_DIR)/AnimationFileBase.cpp $(INCLUDE_DIR)/AnimationFileBase.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
-$(BUILD_DIRECTORY)/AnimationFileJSON.o: $(SOURCE_DIR)/AnimationFileJSON.cpp $(INCLUDE_DIR)/AnimationFileJSON.hpp
+$(BUILD_DIRECTORY)/AnimationFileAseprite.o: $(SOURCE_DIR)/AnimationFileAseprite.cpp $(INCLUDE_DIR)/AnimationFileAseprite.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/AnimationFileShoeBox.o: $(SOURCE_DIR)/AnimationFileShoeBox.cpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/AnimatedObject.o: $(SOURCE_DIR)/AnimatedObject.cpp $(INCLUDE_DIR)/AnimatedObject.hpp
@@ -257,3 +261,11 @@ examples-distclean:
 	$(MAKE) -C ./examples/animation distclean
 	$(MAKE) -C ./examples/landscape-generator distclean
 	$(MAKE) -C ./examples/noise distclean
+
+test-distclean: tests-distclean
+tests-distclean:
+	$(MAKE) -C ./testsuite distclean
+
+test-clean: tests-clean
+tests-clean:
+	$(MAKE) -C ./testsuite clean

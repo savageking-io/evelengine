@@ -68,7 +68,6 @@ namespace EvelEngine {
 
         if (_animation->start + fd > _animation->end)
         {
-            _log->debug("!!!!!!!!!!!!!!!!!!!!");
             _timer->reset();
             _fd = 0;
         }

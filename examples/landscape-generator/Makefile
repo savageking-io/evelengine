@@ -8,7 +8,7 @@ OBJ = $(BUILD_DIRECTORY)/examples/landscape-generator/landscape-generator.o \
 build: landscape-generator-dirs $(BIN_DIRECTORY)/landscape-generator
 
 $(BIN_DIRECTORY)/landscape-generator: $(OBJ)
-	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoFoundation -lpthread -lyaml-cpp $(LDFLAGS) -o $@
+	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/examples/landscape-generator/landscape-generator.o: landscape-generator.cpp
 	$(CXX) $(CXXFLAGS) -I../common -c $< -o $@

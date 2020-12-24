@@ -3,7 +3,7 @@
 
 namespace EvelEngine {
 
-#define FONT_FILE "assets/fonts/minecraft.ttf"
+#define FONT_FILE "assets/kenney_fontpackage/Fonts/Kenney Pixel.ttf"
 #define FONT_SIZE 11
 
 CommandInterface::CommandInterface(const std::string& id) : 
