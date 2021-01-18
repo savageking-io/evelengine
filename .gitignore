@@ -8,6 +8,7 @@ make.examples
 .ycm*
 *.log
 .vscode
+*.swp
 
 # conan
 conan.lock
@@ -29,7 +30,12 @@ assets/ui/uipack_rpg_sheet.png
 assets/priestess.json
 assets/priestess.png
 assets/fonts
-assets/kenney*
+assets/src
+assets/tilesets
 
 # Misc
 include/PerlinNoise.hpp
+
+# Kenney's
+assets/kenney*
+assets/tower-defense-top-down

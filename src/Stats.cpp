@@ -50,6 +50,7 @@ namespace EvelEngine
     void Stats::update()
     {
         if (!_timer) return;
+        if (!_font) return;
 
         Uint32 seconds = _timer->ticks() / 1000;
         if (seconds <= _lastUpdate) return;

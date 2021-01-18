@@ -32,7 +32,8 @@ OBJECT_FILES =  $(BUILD_DIRECTORY)/Engine.o \
 		$(BUILD_DIRECTORY)/Timer.o \
 		$(BUILD_DIRECTORY)/Scene.o \
 		$(BUILD_DIRECTORY)/Object.o \
-		$(BUILD_DIRECTORY)/Tileset.o \
+		$(BUILD_DIRECTORY)/TilesetBase.o \
+		$(BUILD_DIRECTORY)/TilesetTiled.o \
 		$(BUILD_DIRECTORY)/AnimationFileBase.o \
 		$(BUILD_DIRECTORY)/AnimationFileAseprite.o \
 		$(BUILD_DIRECTORY)/AnimationFileShoeBox.o \
@@ -147,7 +148,10 @@ $(BUILD_DIRECTORY)/Scene.o: $(SOURCE_DIR)/Scene.cpp $(INCLUDE_DIR)/Scene.hpp
 $(BUILD_DIRECTORY)/Object.o: $(SOURCE_DIR)/Object.cpp $(INCLUDE_DIR)/Object.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
-$(BUILD_DIRECTORY)/Tileset.o: $(SOURCE_DIR)/Tileset.cpp $(INCLUDE_DIR)/Tileset.hpp
+$(BUILD_DIRECTORY)/TilesetBase.o: $(SOURCE_DIR)/TilesetBase.cpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/TilesetTiled.o: $(SOURCE_DIR)/TilesetTiled.cpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/AnimationFileBase.o: $(SOURCE_DIR)/AnimationFileBase.cpp $(INCLUDE_DIR)/AnimationFileBase.hpp
@@ -226,7 +230,7 @@ make.config:
 	$(error Missing make.config file. Run configure script first)
 
 # Examples
-examples: render dot fractal animation landscape-generator noise
+examples: render dot fractal animation landscape-generator noise towerdefense
 
 render:
 	$(MAKE) -C ./examples/render build
@@ -246,6 +250,9 @@ landscape-generator:
 noise:
 	$(MAKE) -C ./examples/noise build
 
+towerdefense:
+	$(MAKE) -C ./examples/towerdefense build
+
 examples-clean:
 	$(MAKE) -C ./examples/render clean
 	$(MAKE) -C ./examples/dot clean
@@ -253,6 +260,7 @@ examples-clean:
 	$(MAKE) -C ./examples/animation clean
 	$(MAKE) -C ./examples/landscape-generator clean
 	$(MAKE) -C ./examples/noise clean
+	$(MAKE) -C ./examples/towerdefense clean
 
 examples-distclean:
 	$(MAKE) -C ./examples/render distclean
@@ -261,6 +269,7 @@ examples-distclean:
 	$(MAKE) -C ./examples/animation distclean
 	$(MAKE) -C ./examples/landscape-generator distclean
 	$(MAKE) -C ./examples/noise distclean
+	$(MAKE) -C ./examples/towerdefense distclean
 
 test-distclean: tests-distclean
 tests-distclean:

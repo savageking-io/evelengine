@@ -32,14 +32,25 @@ namespace EvelEngine
     void RuntimeStats::requestVideoDriver()
     {
         if (_log) _log->debug("Requesting Video Driver");
-        _videoDriver = std::string(SDL_GetCurrentVideoDriver());
+
+        const char* driver = SDL_GetCurrentVideoDriver();
+        if (driver != nullptr) {
+            _videoDriver = std::string(driver);
+        } else {
+            _log->error("Failed to determine video driver: {0}", SDL_GetError());
+        }
         if (_log) _log->info("Video Driver: {0}", _videoDriver);
     }
 
     void RuntimeStats::requestDisplayName()
     {
         if (_log) _log->debug("Requesting Display Name");
-        _displayName = std::string(SDL_GetDisplayName(0));
+        const char* display = SDL_GetDisplayName(0);
+        if (display != nullptr) {
+            _displayName = std::string(display);
+        } else {
+            _log->error("Failed to determine display name: {0}", SDL_GetError());
+        }
         if (_log) _log->info("Display Name: {0}", _displayName);
     }
 

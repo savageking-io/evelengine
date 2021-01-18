@@ -1,4 +1,5 @@
 OBJ = $(BUILD_DIRECTORY)/testsuite/AnimationFileAsepriteTest.o \
+	$(BUILD_DIRECTORY)/testsuite/TilesetTiledTest.o \
 	$(BUILD_DIRECTORY)/testsuite/AnimationFileShoeBoxTest.o \
 	$(BUILD_DIRECTORY)/testsuite/StringsUtilTest.o \
 	$(BUILD_DIRECTORY)/testsuite/ConfigurationBaseTest.o \
@@ -11,6 +12,9 @@ $(BIN_DIRECTORY)/testsuite: $(OBJ)
 	$(CXX) $(OBJ) -L$(LIB_DIRECTORY) -lcppunit -levelengine -ljsoncpp -lspdlog -lfmt -lPocoXML -lPocoFoundation -lexpat -lpthread -lyaml-cpp $(LDFLAGS) -o $@
 
 $(BUILD_DIRECTORY)/testsuite/AnimationFileAsepriteTest.o: AnimationFileAsepriteTest.cpp AnimationFileAsepriteTest.hpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIRECTORY)/testsuite/TilesetTiledTest.o: TilesetTiledTest.cpp TilesetTiledTest.hpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIRECTORY)/testsuite/AnimationFileShoeBoxTest.o: AnimationFileShoeBoxTest.cpp
