@@ -6,6 +6,8 @@ namespace EvelEngine {
   {
     _x = 0;
     _y = 0;
+    _velocity.x = 0;
+    _velocity.y = 0;
   }
 
   Camera::~Camera()
@@ -32,6 +34,11 @@ namespace EvelEngine {
   int Camera::y()
   {
     return _y;
+  }
+
+  Velocity* Camera::velocity()
+  {
+	return& _velocity;
   }
 
 }

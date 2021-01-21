@@ -1,6 +1,8 @@
 #ifndef __EVEL_ENGINE_CAMERA_HPP__
 #define __EVEL_ENGINE_CAMERA_HPP__
 
+#include "Velocity.hpp"
+
 namespace EvelEngine {
 
     struct Vector2D {
@@ -28,11 +30,14 @@ namespace EvelEngine {
 
             //! Returns Y coordinate of the camera (relative to game world)
             int y();
+
+	    Velocity* velocity();
         private:
             int _x; ///< X Position of the camera
             int _y; ///< Y Position of the camera
             int _w; ///< Width of the screen
             int _h; ///< Height of the screen
+	    Velocity _velocity;
     };
 
 }

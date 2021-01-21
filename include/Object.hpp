@@ -16,6 +16,7 @@
 #include "Camera.hpp"
 #include "ResourceManager.hpp"
 #include "Texture.hpp"
+#include "Velocity.hpp"
 
 namespace EvelEngine {
 
@@ -65,6 +66,7 @@ namespace EvelEngine {
             int width();
             int height();
             const std::string& id() const;
+            Velocity* velocity();
 
         protected:
             std::string _id; // Object ID. Not guarantted to be unique within any scope
@@ -81,6 +83,7 @@ namespace EvelEngine {
             bool _attached; // whether or not this object attached to camera
             bool _loaded; // whether or not this object was loaded
             ResourceManager* _manager; // resource manager used to load objects
+            Velocity _velocity;
     };
 
     std::shared_ptr<Object> NewObject(const std::string& id, Engine* engine, const std::string& filename);

@@ -49,6 +49,8 @@ Object::Object(const std::string& id, ResourceManager* manager, SDL_Renderer* re
     _filename = filename;
     _x = -999;
     _y = -999;
+    _velocity.x = 0;
+    _velocity.y = 0;
 }
 
 Object::~Object()
@@ -168,4 +170,10 @@ const std::string& Object::id() const
 {
     return _id;
 }
+
+Velocity *Object::velocity()
+{
+    return &_velocity;
+}
+
 }
