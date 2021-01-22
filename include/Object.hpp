@@ -59,6 +59,7 @@ namespace EvelEngine {
             void setWidth(int w);
             void setHeight(int h);
             void setPosition(int x, int y);
+            void setArea(int x, int y, int w, int h);
 
             // getters
             int x();
@@ -67,23 +68,31 @@ namespace EvelEngine {
             int height();
             const std::string& id() const;
             Velocity* velocity();
+            int getAreaX();
+            int getAreaY();
+            int getAreaWidth();
+            int getAreaHeight();
 
         protected:
-            std::string _id; // Object ID. Not guarantted to be unique within any scope
-            std::string _filename; // Filename of the object if any
-            SDL_Renderer* _renderer; // Renderer that is passed to underlying elements
-            Texture* _texture;
-            int _x;
-            int _y;
-            int _w;
-            int _h;
-
-            Log* _log;
+            std::string _id;            // Object ID. Not guarantted to be unique within any scope
+            std::string _filename;      // Filename of the object if any
+            SDL_Renderer* _renderer;    // Renderer that is passed to underlying elements
+            Texture* _texture;          // Pointer to associated texture
+            int _ax;                    // Area of texture X
+            int _ay;                    // Area of texture Y
+            int _aw; // Areal width
+            int _ah; // Areal height
+            SDL_Rect _area;
+            int _x; // Object position X
+            int _y; // Object position Y
+            int _w; // Width of the object
+            int _h; // Height of the object
             bool _hidden; // hidden objects are not rendered
             bool _attached; // whether or not this object attached to camera
             bool _loaded; // whether or not this object was loaded
             ResourceManager* _manager; // resource manager used to load objects
-            Velocity _velocity;
+            Velocity _velocity; // Velocity of the object
+            Log* _log; // Logging subsystem
     };
 
     std::shared_ptr<Object> NewObject(const std::string& id, Engine* engine, const std::string& filename);

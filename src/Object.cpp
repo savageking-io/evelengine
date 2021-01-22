@@ -51,6 +51,7 @@ Object::Object(const std::string& id, ResourceManager* manager, SDL_Renderer* re
     _y = -999;
     _velocity.x = 0;
     _velocity.y = 0;
+    _area = SDL_Rect{0, 0, 0, 0};
 }
 
 Object::~Object()
@@ -64,6 +65,9 @@ bool Object::load()
         return false;
     _loaded = true;
     _log->info("Object {0} loaded", _id);
+
+    setArea(0, 0, _texture->width(), _texture->height());
+
     return true;
 }
 
@@ -76,11 +80,11 @@ void Object::render(Camera* camera, double delta)
     int scale = 1;
 
     if (_attached) {
-        dst = { _x + camera->x(), _y + camera->y(), _texture->width() * scale, _texture->height() * scale };
+        dst = { _x + camera->x(), _y + camera->y(), _aw * scale, _ah * scale };
     } else {
-        dst = { _x, _y, _texture->width() * scale, _texture->height() * scale };
+        dst = { _x, _y, _aw * scale, _ah * scale };
     }
-    SDL_RenderCopy(_renderer, _texture->get(), NULL, &dst);
+    SDL_RenderCopy(_renderer, _texture->get(), &_area, &dst);
     return;
 }
 
@@ -122,6 +126,15 @@ void Object::setPosition(int x, int y)
 {
     _x = x;
     _y = y;
+}
+
+void Object::setArea(int x, int y, int w, int h)
+{
+    _ax = x;
+    _ay = y;
+    _aw = w;
+    _ah = h;
+    _area = {_ax, _ay, _aw, _ah};
 }
 
 void Object::setX(int x)
@@ -174,6 +187,26 @@ const std::string& Object::id() const
 Velocity *Object::velocity()
 {
     return &_velocity;
+}
+
+int Object::getAreaHeight()
+{
+    return _ah;
+}
+
+int Object::getAreaWidth()
+{
+    return _aw;
+}
+
+int Object::getAreaX()
+{
+    return _ax;
+}
+
+int Object::getAreaY()
+{
+    return _ay;
 }
 
 }
