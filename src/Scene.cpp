@@ -11,6 +11,7 @@ std::shared_ptr<Scene> NewScene(const std::string& id)
 Scene::Scene(const std::string& id, Log* log)
     : _log(log)
     , _id(id)
+    , _hidden(false)
 {
     _log->info("Initializing new scene {0}", _id);
 }
@@ -37,6 +38,8 @@ void Scene::addScene(std::shared_ptr<Scene> scene) {
 
 void Scene::render(Camera *camera, double delta)
 {
+    if (_hidden) return;
+
     for (auto it = _objects.begin(); it != _objects.end(); it++) {
         (*it)->render(camera, delta);
     }
@@ -68,6 +71,38 @@ void Scene::clear()
     {
         it->reset();
     }    
+}
+
+void Scene::hide()
+{
+    _hidden = true;
+}
+
+void Scene::show()
+{
+    _hidden = false;
+}
+
+bool Scene::isHidden()
+{
+    return _hidden;
+}
+
+std::shared_ptr<Scene> Scene::findScene(const std::string& name)
+{
+    for (auto it = _scenes.begin(); it != _scenes.end(); ++it)
+    {
+        if ((*it)->id() == name)
+        {
+            return (*it);
+        }
+    }
+    return nullptr;
+}
+
+const std::string Scene::id() const
+{
+    return _id;
 }
 
 }

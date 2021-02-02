@@ -56,7 +56,7 @@ bool NoiseConsole::handleCommand(const std::string& cmd)
         float freq = Poco::NumberParser::parseFloat((*arg));
         _noise->clear();
         _noise->params()->freq = freq;
-        _noise->generate();
+        //_noise->generate();
         return true;
     }
     else if (cmd.substr(0, 4) == "seed")
@@ -80,7 +80,7 @@ bool NoiseConsole::handleCommand(const std::string& cmd)
         
         _noise->clear();
         _noise->params()->seed = newSeed;
-        _noise->generate();
+        //_noise->generate();
 
         return true;
     }

@@ -2,6 +2,7 @@
 #define __NOISE_HPP__
 
 #include "PerlinNoise.hpp"
+#include "Texture.hpp"
 
 struct NoiseParams {
     double freq;
@@ -15,7 +16,7 @@ class NoiseExample
     public:
         NoiseExample(NoiseParams* params);
         ~NoiseExample();
-        void generate();
+        void generate(std::shared_ptr<EvelEngine::Texture> texture);
         void clear();
         NoiseParams* params();
     private:

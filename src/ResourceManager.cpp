@@ -26,7 +26,7 @@ namespace EvelEngine {
 
     }
 
-    Texture* ResourceManager::texture(const std::string& id)
+    std::shared_ptr<Texture> ResourceManager::texture(const std::string& id)
     {
         try {
             auto tx = _textures.at(id);
@@ -38,6 +38,7 @@ namespace EvelEngine {
             }
             return tx;
         }
+        return nullptr;
     }
 
     std::shared_ptr<AnimationFileBase> ResourceManager::animationFile(const std::string& id)
@@ -57,7 +58,7 @@ namespace EvelEngine {
         }
     }
 
-    Texture* ResourceManager::loadTexture(const std::string& path)
+    std::shared_ptr<Texture> ResourceManager::loadTexture(const std::string& path)
     {
         auto fullPath = _fs->findTexture(path);
         if (fullPath.empty())
@@ -66,14 +67,14 @@ namespace EvelEngine {
             return nullptr;
         }
 
-        Texture* texture = new Texture(_renderer, _log);
+        auto texture = std::make_shared<Texture>(_renderer, _log);
         if (!texture->load(fullPath)) 
         {
             _log->error("Failed to load texture from {0}", fullPath);
             return nullptr;
         }
 
-        _textures.insert(std::pair<std::string, Texture*>(fullPath, texture));
+        _textures.insert(std::pair<std::string, std::shared_ptr<Texture> >(fullPath, texture));
         return texture;
     }
 

@@ -4,7 +4,7 @@
 namespace EvelEngine {
 
 #define FONT_FILE "assets/kenney_fontpackage/Fonts/Kenney Pixel.ttf"
-#define FONT_SIZE 11
+#define FONT_SIZE 14
 
 CommandInterface::CommandInterface(const std::string& id) : 
     EventBase(id), 

@@ -90,6 +90,8 @@ namespace EvelEngine {
 
             void toggleFullscreen();
 
+            void setRenderSize(int w, int h);
+
             //! Returns a reference to SDL_Renderer
             /*!
              * \return SDL_Renderer

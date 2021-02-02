@@ -19,6 +19,32 @@ namespace EvelEngine {
         SDL_RenderDrawPoint(_renderer, _x, _y);
     }
 
+    std::shared_ptr<Texture> Point::draw()
+    {
+        auto texture = std::make_shared<Texture>(_renderer, _log);
+        texture->createBlank(_id, 1, 1);
+        if (SDL_SetRenderTarget(_renderer, texture->get()) != 0)
+        {
+            _log->error("Failed to switch render target: {0}", SDL_GetError());
+            SDL_SetRenderTarget(_renderer, NULL);
+            return texture;
+        }
+        if (SDL_SetRenderDrawColor(_renderer, _color.r, _color.g, _color.b, _color.a) != 0)
+        {
+            _log->error("Failed to set render draw color: {0}", SDL_GetError());
+            SDL_SetRenderTarget(_renderer, NULL);
+            return texture;
+        }
+        if (SDL_RenderDrawPoint(_renderer, _x, _y) != 0) 
+        {
+            _log->error("Failed to draw point: {0}", SDL_GetError());
+            SDL_SetRenderTarget(_renderer, NULL);
+            return texture;
+        }
+        SDL_SetRenderTarget(_renderer, NULL);
+        return texture;
+    }
+
     std::shared_ptr<Point> NewPoint(const std::string& id, int x, int y, SDL_Color color)
     {
         auto engine = Engine::get();

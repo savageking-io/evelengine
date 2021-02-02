@@ -119,7 +119,7 @@ namespace EvelEngine {
         const SDL_version *imgv = IMG_Linked_Version();
         _log->info("SDL2 Image Initialization completed. Version: {0}.{1}.{2}", imgv->major, imgv->minor, imgv->patch);
 
-        //SDL_RenderSetLogicalSize(_renderer, 480, 270);
+        // SDL_RenderSetLogicalSize(_renderer, 480, 270);
         SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x88, 0xFF);
 
         _fs = new FileSystem("", _log);
@@ -172,6 +172,7 @@ namespace EvelEngine {
             }
             SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x88, 0xFF);
             SDL_RenderClear(_renderer);
+            _camera->tick(delta);
             _scene->render(_camera, delta);
             // TODO: Lowercase Render method
             if (_command) _command->Render();
@@ -259,6 +260,11 @@ namespace EvelEngine {
     {
         if (_fullscreen) disableFullscreen();
         else enableFullscreen();
+    }
+
+    void Engine::setRenderSize(int w, int h)
+    {
+        SDL_RenderSetLogicalSize(_renderer, w, h);
     }
 
     //! Returns reference to SDL_Renderer

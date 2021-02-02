@@ -38,7 +38,13 @@ namespace EvelEngine {
 
   Velocity* Camera::velocity()
   {
-	return& _velocity;
+	  return& _velocity;
+  }
+
+  void Camera::tick(double delta)
+  {
+    _x += _velocity.x;
+    _y += _velocity.y;
   }
 
 }

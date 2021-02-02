@@ -31,6 +31,8 @@ namespace EvelEngine {
             //! Returns Y coordinate of the camera (relative to game world)
             int y();
 
+            void tick(double delta);
+
 	    Velocity* velocity();
         private:
             int _x; ///< X Position of the camera
