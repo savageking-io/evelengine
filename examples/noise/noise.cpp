@@ -34,7 +34,7 @@ void NoiseExample::generate(std::shared_ptr<EvelEngine::Texture> texture)
     // Ridged
     double weight = 1.0;
 
-    std::vector<EvelEngine::TextureData> texture_data;
+    std::vector<std::shared_ptr<EvelEngine::Texture> > textures;
 
     for (int x = 0; x < SCREEN_W; ++x)
     {
@@ -50,34 +50,20 @@ void NoiseExample::generate(std::shared_ptr<EvelEngine::Texture> texture)
             v *= v;
             // v *= weight;
 
-            //EvelEngine::Engine::get()->log()->info("NOISE VAL: {0}", v);
 
             SDL_Color c;
             c.r = c.g = c.b = Uint8(v);
 
-            //EvelEngine::Engine::get()->log()->info("NOISE VAL UINT8: {0}", c.r);
-
             c.a = 255;
             auto point = EvelEngine::NewPoint("point", x, y, c);
             auto point_texture = point->draw();
-
-            EvelEngine::TextureData d;
-            d.texture = point_texture->get();
-            d.sx = 0;
-            d.sy = 0;
-            d.sw = 1;
-            d.sh = 1;
-            d.px = x;
-            d.py = y;
-            d.pw = 1;
-            d.ph = 1;
-            texture_data.push_back(d);
-            
-            //EvelEngine::Engine::get()->scene()->addObject(point);
+            point_texture->source(0, 0, 1, 1);
+            point_texture->destination(x, y, 1, 1);
+            textures.push_back(point_texture);
         }
     }
 
-    texture->draw(texture_data);
+    texture->draw(textures);
 }
 
 void NoiseExample::clear()

@@ -72,40 +72,17 @@ namespace EvelEngine {
             _fd = 0;
         }
 
-        //_log->debug("AT: {0} AS: {1} AE: {2} AF: {3}", _animation->tag, _animation->start, _animation->end, _animation->frames);
-        //_log->debug("FD: {0} Frame: {1} AE: {2}", fd, _frame, _animation->end);
-
         SDL_Rect src;
 
         src = { _frames.at(_frame + fd).x, _frames.at(_frame + fd).y, _frames.at(_frame + fd).w, _frames.at(_frame + fd).h };
-        SDL_Rect dst;
+        SDL_Rect dst = _position.rect();
         if (_attached) {
-            dst = { _x + camera->x(), _y + camera->y(), _frames.at(_frame).w, _frames.at(_frame).h };
-        } else {
-            dst = { _x, _y, _frames.at(_frame+fd).w, _frames.at(_frame+fd).h };
-        }
+            dst = { _position.position.x + camera->x(), _position.position.y + camera->y(), _frames.at(_frame).w, _frames.at(_frame).h };
+        } 
         SDL_RenderCopy(_renderer, _texture->get(), &src, &dst);
 
         if (SDL_GetTicks() - _lastTick < delta) { return; }
         _lastTick = SDL_GetTicks();
-
-        /*
-           ++_frame;
-           if (_animation != nullptr)
-           {
-           if (_frame > _animation->end)
-           {
-           _frame = _animation->start;
-           }
-           }
-           else 
-           {
-           if (_frame > int(_frames.size() - 1)) _frame = 0;
-           }
-           */
-
-        //_log->debug("Playing frame #{0}", _frame);
-
         return;
     }
 

@@ -2,14 +2,9 @@
 #define __EVEL_ENGINE_CAMERA_HPP__
 
 #include "Velocity.hpp"
+#include "Geometry.hpp"
 
 namespace EvelEngine {
-
-    struct Vector2D {
-        int x;
-        int y;
-    };
-
     class Camera 
     {
         public:

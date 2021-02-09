@@ -6,10 +6,10 @@ namespace EvelEngine
     Primitives::Primitives(const std::string &id, SDL_Renderer *renderer, int x, int y, int w, int h, SDL_Color color, Log *log)
         : Object(id, nullptr, renderer, "", log)
     {
-        _x = x;
-        _y = y;
-        _w = w;
-        _h = h;
+        _position.position.x = x;
+        _position.position.y = y;
+        _position.size.x = w;
+        _position.size.y = h;
         _color = color;
     }
 

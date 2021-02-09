@@ -50,6 +50,7 @@ OBJECT_FILES =  $(BUILD_DIRECTORY)/Engine.o \
 		$(BUILD_DIRECTORY)/Seed.o \
 		$(BUILD_DIRECTORY)/Camera.o \
 		$(BUILD_DIRECTORY)/ResourceManager.o \
+		$(BUILD_DIRECTORY)/Geometry.o \
 		$(BUILD_DIRECTORY)/Primitives.o \
 		$(BUILD_DIRECTORY)/Point.o \
 		$(BUILD_DIRECTORY)/Rectangle.o \
@@ -200,6 +201,9 @@ $(BUILD_DIRECTORY)/Camera.o: $(SOURCE_DIR)/Camera.cpp $(INCLUDE_DIR)/Camera.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/ResourceManager.o: $(SOURCE_DIR)/ResourceManager.cpp $(INCLUDE_DIR)/ResourceManager.hpp
+	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
+
+$(BUILD_DIRECTORY)/Geometry.o: $(SOURCE_DIR)/Geometry.cpp $(INCLUDE_DIR)/Geometry.hpp
 	$(CXX) $(CXXFLAGS) -c -fPIC $< -o $@
 
 $(BUILD_DIRECTORY)/Primitives.o: $(SOURCE_DIR)/Primitives.cpp $(INCLUDE_DIR)/Primitives.hpp

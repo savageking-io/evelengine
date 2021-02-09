@@ -49,6 +49,7 @@ namespace EvelEngine
         virtual bool load();
         virtual bool applyTexture(std::shared_ptr<Texture> texture);
         virtual void render(Camera *camera, double delta);
+        virtual std::shared_ptr<Texture> draw();
 
         void attach();
         void detach();
@@ -71,7 +72,7 @@ namespace EvelEngine
         int width();
         int height();
         const std::string &id() const;
-        Velocity *velocity();
+        Vector2D *velocity();
         int getAreaX();
         int getAreaY();
         int getAreaWidth();
@@ -87,15 +88,12 @@ namespace EvelEngine
         int _aw;                           // Areal width
         int _ah;                           // Areal height
         SDL_Rect _area;                    // Area of the texture being renderered
-        int _x;                            // Object position X
-        int _y;                            // Object position Y
-        int _w;                            // Width of the object
-        int _h;                            // Height of the object
+        Rect2D _position;
         bool _hidden;                      // hidden objects are not rendered
         bool _attached;                    // whether or not this object attached to camera
         bool _loaded;                      // whether or not this object was loaded
         ResourceManager *_manager;         // resource manager used to load objects
-        Velocity _velocity;                // Velocity of the object
+        Vector2D _velocity;                // Velocity of the object
         Log *_log;                         // Logging subsystem
     };
 

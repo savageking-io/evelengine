@@ -92,6 +92,8 @@ namespace EvelEngine {
 
             void setRenderSize(int w, int h);
 
+            void resetRenderTarget();
+
             //! Returns a reference to SDL_Renderer
             /*!
              * \return SDL_Renderer

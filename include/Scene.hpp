@@ -14,6 +14,7 @@
 #include "Camera.hpp"
 #include "Primitives.hpp"
 #include "Engine.hpp"
+#include "Texture.hpp"
 
 namespace EvelEngine {
     class Scene {
@@ -68,6 +69,8 @@ namespace EvelEngine {
             void hide();
             void show();
             bool isHidden();
+            
+            // std::shared_ptr<Texture> convertToTexture();
         private:
             std::vector<std::shared_ptr<Scene>>     _scenes;    ///< List of child scenes
             std::vector<std::shared_ptr<Object>>    _objects;   ///< List of attached objects
